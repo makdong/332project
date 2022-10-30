@@ -12,10 +12,10 @@ Project deadline Dec 9, 23:59
 None, due to midterm
 
 * Week 2 \
-Understand the project and the flow - [x] \
-Make plans - [x] \
-Make commit rule - [x] \
-Finish midterm (due to midterm not finished to some students) - [ ] \
+Understand the project and the flow - [O] \
+Make plans - [O] \
+Make commit rule - [O] \
+Finish midterm (due to midterm not finished to some students) - [X] \
 \
 This week, there's no individual roles since we study together.
 
