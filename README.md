@@ -15,20 +15,20 @@ None, due to midterm
 Understand the project and the flow - [O] \
 Make plans - [O] \
 Make commit rule - [O] \
-Finish midterm (due to midterm not finished to some students) - [X] \
+Finish midterm (due to midterm not finished to some students) - [O] \
 \
 This week, there's no individual roles since we study together.
 
 
 * Week 3 \
-(1) Decide which sort to use \
-(2) Decide which merge algorithm we should use \
+(1) Decide which sort to use - [O] \
+(2) Decide which merge algorithm we should use - [O] \
 (3) Study gRPC (communication between worker and master) \
 (4) Study how to use gensort \
 (5) Check about flow (partition, sampling, shuffling) \
-(6) Check develop setting (server)
-(7) How will we implement multi-threaded program? \
-(8) clear the questions in the meeting log.
+(6) Check develop setting (server) - [X]\
+(7) How will we implement multi-threaded program? - [X] \
+(8) clear the questions in the meeting log - [O]
 \
 \
 Dongha, Kim : (3), (7) \
@@ -37,16 +37,37 @@ Seongjin, Choi : (5), (7) \
 Together : (1), (2), (6), (8)
 
 * Week 4 \
-(1) Study how to test, need CI/CD \
-(2) Discussion about the implementation ... which functions needed and the structure
+(1) Study how to test \
+(2) Discussion about the implementation ... which functions needed and the structure \
+(3) Check/Set develop setting. Versioning. \
+(4) Initiallize project \
+(5) Discuss about how to implement multithreaded program \
+(6) Discuss about input / output specification
+\
+\
+Dongha, Kim : \
+Yunseong, Moon : \
+Seongjin, Choi : \
+Together : (2) , (5)
 
 * Week 5 \
-Set the milestone \
-Start Implement \
-Mid Report
+(1) Set the milestone \
+(2) Implement gRPC \
+(3) Implement gensort \
+(4) Implement worker's sorting \
+(5) Mid Report
+\
+\
+Dongha, Kim : (2) \
+Yunseong, Moon : (3) \
+Seongjin, Choi : (4) \
+Together : (1), (5)
 
 * Week 6 \
-Implement
+(1) Implement merge algorithm \
+(2) Implement partitioning \
+(3) Implement sampling \
+(4) Implement shuffling \
 
 * Week 7 \
 Implement
