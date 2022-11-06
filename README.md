@@ -5,7 +5,10 @@
  20170000 Seongjin, Choi 
 
 Progress Slides deadline Nov 16, 23:59 \
-Project deadline Dec 9, 23:59
+Project deadline Dec 9, 23:59\
+
+We use the notion \
+Link : https://navy-glade-23e.notion.site/SD-project-Distributed-Sorting-fd9dc6041d8e4a96b5cfc1a990647dc0 \
 ## Weekly Progress
 
 * Week 1 \
@@ -23,9 +26,9 @@ This week, there's no individual roles since we study together.
 * Week 3 \
 (1) Decide which sort to use - [O] \
 (2) Decide which merge algorithm we should use - [O] \
-(3) Study gRPC (communication between worker and master) \
-(4) Study how to use gensort \
-(5) Check about flow (partition, sampling, shuffling) \
+(3) Study gRPC (communication between worker and master) - [O] \
+(4) Study how to use gensort - [O] \
+(5) Check about flow (partition, sampling, shuffling) - [O] \
 (6) Check develop setting (server) - [X]\
 (7) How will we implement multi-threaded program? - [X] \
 (8) clear the questions in the meeting log - [O]
@@ -38,7 +41,7 @@ Together : (1), (2), (6), (8)
 
 * Week 4 \
 (1) Study how to test \
-(2) Discussion about the implementation ... which functions needed and the structure \
+(2) Discussion about the detailed implementation ... which functions needed and the structure \
 (3) Check/Set develop setting. Versioning. \
 (4) Initiallize project \
 (5) Discuss about how to implement multithreaded program \
@@ -48,7 +51,7 @@ Together : (1), (2), (6), (8)
 Dongha, Kim : \
 Yunseong, Moon : \
 Seongjin, Choi : \
-Together : (2) , (5)
+Together : (2) , (5), (6)
 
 * Week 5 \
 (1) Set the milestone \
