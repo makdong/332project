@@ -40,31 +40,32 @@ Seongjin, Choi : (5), (7) \
 Together : (1), (2), (6), (8)
 
 * Week 4 \
-(1) Study how to test \
-(2) Discussion about the detailed implementation ... which functions needed and the structure \
-(3) Check/Set develop setting. Versioning. \
-(4) Initiallize project \
-(5) Discuss about how to implement multithreaded program \
-(6) Discuss about input / output specification
+(1) Study how to test (O) \
+(2) Discussion about the detailed implementation ... which functions needed and the structure (X) \
+(3) Check/Set develop setting in local server. Versioning. (O) \
+(4) Initiallize project (M) \
+(5) Discuss about how to implement multithreaded program (M) \
+(6) Discuss about input / output specification (O) 
 \
 \
-Dongha, Kim : \
-Yunseong, Moon : \
-Seongjin, Choi : \
-Together : (2) , (5), (6)
+Dongha, Kim : (6) \
+Yunseong, Moon : (1) \ 
+Seongjin, Choi : (3) \
+Together : (2), (4), (5)
 
 * Week 5 \
-(1) Set the milestone \
-(2) Implement gRPC \
-(3) Implement gensort \
-(4) Implement worker's sorting \
-(5) Mid Report
+(1) Discussion about the detailed implementation \
+(2) Finish development setting in the cluster server \
+(3) Initiallize the project \
+(4) Implement getting data using gensort \
+(5) Implement master % worker setting using gRPC \
+(6) Mid Report
 \
 \
-Dongha, Kim : (2) \
-Yunseong, Moon : (3) \
-Seongjin, Choi : (4) \
-Together : (1), (5)
+Dongha, Kim : (3), (5) \
+Yunseong, Moon : (4) \
+Seongjin, Choi : (2) \
+Together : (1), (6)
 
 * Week 6 \
 (1) Implement merge algorithm \
