@@ -54,12 +54,12 @@ Seongjin, Choi : (3) \
 Together : (2), (4), (5)
 
 * Week 5 \
-(1) Discussion about the detailed implementation \
-(2) Finish development setting in the cluster server \
-(3) Initiallize the project \
-(4) Implement getting data using gensort \
-(5) Implement master % worker setting using gRPC \
-(6) Mid Report
+(1) Discussion about the detailed implementation (O) \
+(2) Finish development setting in the cluster server --> using local server (O) \
+(3) Initiallize the project (X) \
+(4) Implement getting data using gensort (O) \
+(5) Implement master % worker setting using gRPC (X) \
+(6) Mid Report (O) 
 \
 \
 Dongha, Kim : (3), (5) \
@@ -67,11 +67,19 @@ Yunseong, Moon : (4) \
 Seongjin, Choi : (2) \
 Together : (1), (6)
 
-* Week 6 \
-(1) Implement merge algorithm \
-(2) Implement partitioning \
-(3) Implement sampling \
-(4) Implement shuffling \
+* Week 6 - coding day \
+(0) Finish thinking about messages needed \
+(1) Implement master % worker setting using gRPC \
+(2) Implement merge algorithm \
+(3) Implement partitioning \
+(4) Implement sampling \
+(5) Implement shuffling \
+\
+\
+Dongha, Kim : (1) \
+Yunseong, Moon : (2), (3) \
+Seongjin, Choi : (4), (5) \
+Together : (0) \
 
 * Week 7 \
 Implement
