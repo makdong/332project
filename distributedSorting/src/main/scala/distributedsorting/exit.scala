@@ -1,5 +1,0 @@
-package distributedsorting
-
-class exit {
-
-}

@@ -1,0 +1,5 @@
+package distributedsorting
+
+object worker {
+
+}
