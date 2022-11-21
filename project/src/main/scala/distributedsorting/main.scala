@@ -7,10 +7,13 @@ object main extends App {
   logger.info("main program starts")
 
   def main(): Unit = {
-    logger.info("Logger : Welcome to log4j")
+    logger.trace("trace1")
+    logger.debug("debug1")
+    logger.info("info1")
+    logger.warn("warn1")
+    logger.error("error1")
   }
 
   main()
-  println("goreingoringroe")
 }
 
