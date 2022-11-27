@@ -11,6 +11,16 @@ Compile / PB.targets := Seq(
 )
 
 libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "3.2.8" % "test"
+)
+
+libraryDependencies += "org.scalatestplus" %% "junit-4-13" % "3.2.14.0" % "test"
+
+libraryDependencies ++= Seq(
+  "junit" % "junit" % "4.10" % "test"
+)
+
+libraryDependencies ++= Seq(
   "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf"
 )
 

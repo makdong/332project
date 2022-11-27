@@ -12,7 +12,11 @@ object main extends App {
     logger.info("info1")
     logger.warn("warn1")
     logger.error("error1")
+
+    print("Hello World!")
   }
+
+  def cont = 1
 
   main()
 }
