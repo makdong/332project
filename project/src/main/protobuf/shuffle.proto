@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+/*
+After get the sample value from the worker,
+main give criteria to each worker that
+which data should go into which worker.
+ */
+service GiveCriteria {
+  rpc Shuffle (ShuffleRequest) returns (ShuffleRespond) {}
+}
+
+message ShuffleRequest {
+  string globalKeyMinimum = 1;
+  string globalKeyMaximum = 2;
+}
+
+message ShuffleRespond {
+
+}
+
+

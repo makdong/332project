@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+/*
+After the main gives data to each worker properly,
+worker should do merge sorting and
+return the order of the blocks.
+ */
+service MergeBlock {
+  rpc Merge (MergeRequest) returns (MergeRespond) {}
+}
+
+message MergeRequest {
+
+}
+
+message MergeRespond {
+  string blockOrder = 1;
+}
+
+

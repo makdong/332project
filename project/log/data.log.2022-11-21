@@ -1,0 +1,46 @@
+[14:23:34][INFO ](main.scala:7)-main program starts
+[14:23:34][INFO ](main.scala:12)-info1
+[14:23:34][WARN ](main.scala:13)-warn1
+[14:23:34][ERROR](main.scala:14)-error1
+[14:27:50][INFO ](main.scala:7)-main program starts
+[14:27:50][INFO ](main.scala:7)-main program starts
+[14:27:50][INFO ](main.scala:12)-info1
+[14:27:50][INFO ](main.scala:12)-info1
+[14:27:50][WARN ](main.scala:13)-warn1
+[14:27:50][WARN ](main.scala:13)-warn1
+[14:27:50][ERROR](main.scala:14)-error1
+[14:27:50][ERROR](main.scala:14)-error1
+[14:28:26][INFO ](main.scala:7)-main program starts
+[14:28:26][INFO ](main.scala:7)-main program starts
+[14:28:26][INFO ](main.scala:12)-info1
+[14:28:26][INFO ](main.scala:12)-info1
+[14:28:26][WARN ](main.scala:13)-warn1
+[14:28:26][WARN ](main.scala:13)-warn1
+[14:28:26][ERROR](main.scala:14)-error1
+[14:28:26][ERROR](main.scala:14)-error1d
+[14:29:37][INFO ](main.scala:7)-main program starts
+[14:29:37][INFO ](main.scala:12)-info1
+[14:29:37][WARN ](main.scala:13)-warn1
+[14:29:37][ERROR](main.scala:14)-error1
+[14:30:25][WARN ](main.scala:13)-warn1
+[14:30:25][ERROR](main.scala:14)-error1
+[14:31:05][INFO ](main.scala:7)-main program starts
+[14:31:05][INFO ](main.scala:12)-info1
+[14:31:05][WARN ](main.scala:13)-warn1
+[14:31:05][ERROR](main.scala:14)-error1
+[14:37:24][INFO ](main.scala:7)-main program starts
+[14:37:24][INFO ](main.scala:12)-info1
+[14:37:24][WARN ](main.scala:13)-warn1
+[14:37:24][ERROR](main.scala:14)-error1
+[14:37:54][WARN ](main.scala:13)-warn1
+[14:37:54][ERROR](main.scala:14)-error1
+[14:37:56][WARN ](main.scala:13)-warn1
+[14:37:56][ERROR](main.scala:14)-error1
+[14:38:41][WARN ](main.scala:13)-warn1
+[14:38:41][ERROR](main.scala:14)-error1
+[14:39:53][WARN ](main.scala:13)-warn1
+[14:39:53][ERROR](main.scala:14)-error1
+[14:40:11][INFO ](main.scala:7)-main program starts
+[14:40:11][INFO ](main.scala:12)-info1
+[14:40:11][WARN ](main.scala:13)-warn1
+[14:40:11][ERROR](main.scala:14)-error1
