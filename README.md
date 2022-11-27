@@ -2,7 +2,7 @@
 ## POSTECH CSE332 final project, Team White
  20190750 Dongha, Kim \
  20190685 Yunseong, Moon \
- 20170000 Seongjin, Choi 
+ 20170891 Seongjin, Choi 
 
 Progress Slides deadline Nov 16, 23:59 \
 Project deadline Dec 9, 23:59\
@@ -68,21 +68,28 @@ Seongjin, Choi : (2) \
 Together : (1), (6)
 
 * Week 6 - coding day \
-(0) Finish thinking about messages needed \
-(1) Implement master % worker setting using gRPC \
-(2) Implement merge algorithm \
-(3) Implement partitioning \
-(4) Implement sampling \
-(5) Implement shuffling \
+(0) Finish thinking about messages needed (O) \
+(1) Initiallize the project (O) \
+(2) Implement master % worker setting using gRPC (O) \
+(3) Implement test cases (O) \
 \
 \
-Dongha, Kim : (1) \
-Yunseong, Moon : (2), (3) \
-Seongjin, Choi : (4), (5) \
+Dongha, Kim : (1))\
+Yunseong, Moon : (3)) \
+Seongjin, Choi : (2)) \
 Together : (0) \
 
 * Week 7 \
-Implement
+(0) Implement merge algorithm (X) \
+(1) Implement partitioning (X) \
+(2) Implement sampling (X) \
+(3) Implement shuffling (X) \
+(4) Debugging \
+
+Dongha, Kim : (0), (3) \
+Yunseong, Moon : (1)) \
+Seongjin, Choi : (2) \
+Together : (4) \
 
 * Week 8 \
 Testing \
