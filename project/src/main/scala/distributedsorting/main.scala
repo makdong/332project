@@ -16,6 +16,8 @@ object main extends App {
     print("Hello World!")
   }
 
+  def cont = 1
+
   main()
 }
 
