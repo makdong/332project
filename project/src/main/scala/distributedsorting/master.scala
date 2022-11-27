@@ -11,26 +11,29 @@ object master extends App {
 
   if (args.isEmpty) {
     logger.info("No arguments. Test mode with hard coded IP address starts.")
-    val masterPort = 1234
+    val worker_num = 10
+    val masterPort = 8023
     val workerPort = List(
-      "111",
-      "111",
-      "111",
-      "111",
-      "111",
-      "111",
-      "111",
-      "111",
-      "111",
-      "111",
+      "8024",
+      "8025",
+      "8026",
+      "8027",
+      "8028",
+      "8029",
+      "8030",
+      "8031",
+      "8032",
+      "8033",
     )
-    val IPaddress = "111.222.333.444"
+    val IPaddress = "141.223.232.63"
   } else {
     logger.info("Get arguments.")
 
     try {
       assert(args.length != 1, "Args.length is 1. There is no worker's IP address. Stop the program.")
       assert(isIPValid(args), "The format of IP address is invalid. Stop the program.")
+      val arg_array = args.split(" ")
+      val worker_num = args.apply(0).toInt - 48
     } catch {
       e => logger.error(e)
     }
