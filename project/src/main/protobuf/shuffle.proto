@@ -12,10 +12,14 @@ service GiveCriteria {
 message ShuffleRequest {
   string globalKeyMinimum = 1;
   string globalKeyMaximum = 2;
+  int32 numWorkers = 3;
 }
 
+/*
+query should contain the value of key & data and it's destination.
+ */
 message ShuffleRespond {
-
+  string query = 1;
 }
 
 
