@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+package protobuf;
 /*
 After get the sample value from the worker,
 main give criteria to each worker that

@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+package protobuf;
 /*
 master should check whether the workers are running or not.
 If every worker is ready, then continue the program.

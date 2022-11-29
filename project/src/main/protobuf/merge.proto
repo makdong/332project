@@ -1,7 +1,8 @@
 syntax = "proto3";
 
+package protobuf;
 /*
-After the main gives data to each worker properly,
+After the main gives data to ㄴeach worker properly,
 worker should do merge sorting and
 return the order of the blocks.
  */

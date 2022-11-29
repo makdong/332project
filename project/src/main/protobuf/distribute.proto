@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+package protobuf;
 /*
 MainDistributeBlocks distribute the blocks to each workers,
 and get the sample value from the worker.
