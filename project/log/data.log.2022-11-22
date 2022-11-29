@@ -1,0 +1,6 @@
+[14:20:32][INFO ](main.scala:7)-main program starts
+[14:20:32][INFO ](main.scala:12)-info1
+[14:20:32][WARN ](main.scala:13)-warn1
+[14:20:32][ERROR](main.scala:14)-error1
+[16:36:33][INFO ](main.scala:7)-main program starts
+[17:22:58][INFO ](main.scala:7)-main program starts

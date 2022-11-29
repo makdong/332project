@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package distributedsorting;
+/*
+After the main gives data to ㄴeach worker properly,
+worker should do merge sorting and
+return the order of the blocks.
+ */
+service MergeBlock {
+  rpc Merge (MergeRequest) returns (MergeRespond) {}
+}
+
+message MergeRequest {
+  string query = 1;
+}
+
+message MergeRespond {
+  string blockOrder = 1;
+}
+
+
