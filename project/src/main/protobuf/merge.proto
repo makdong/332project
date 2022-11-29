@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protobuf;
+package distributedsorting;
 /*
 After the main gives data to ㄴeach worker properly,
 worker should do merge sorting and
