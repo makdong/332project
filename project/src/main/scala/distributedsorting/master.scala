@@ -2,7 +2,7 @@ package distributedsorting
 
 import org.apache.log4j.Logger
 object master extends App {
-  def isIPValid(strings: Array[String]): Boolean = {
+  def isIPValid(isPort: Boolean, strings: Array[String]): Boolean = {
     false
   }
 
@@ -31,10 +31,21 @@ object master extends App {
 
     try {
       assert(args.length != 1, "Args.length is 1. There is no worker's IP address. Stop the program.")
-      assert(isIPValid(args), "The format of IP address is invalid. Stop the program.")
+      
       val args_array = args.split(" ")
       val args_length = args_array.length
-      val worker_num = args.apply(0).toInt - 48
+      if (args_array.apply(0) == "-p") then {
+        val worker_num = args_array.apply(1).toInt - 48
+        val ip_array = args_arrry.slice(2,args_length)
+        assert(isIPValid(true, ip_array), "The format of IP address is invalid. Stop the program.")
+        logger.info("IP Addresses and Port are Valid")
+      }
+      else {
+        val worker_num = args_array.apply(0).toInt - 48
+        val ip_array = args_arrry.slice(1,args_length)
+        assert(isIPValid(false, ip_array), "The format of IP address is invalid. Stop the program.")
+        logger.info("IP Addresses and Port are Valid")
+      }
     } catch {
       e => logger.error(e)
     }
