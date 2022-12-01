@@ -1,13 +1,17 @@
 package distributedsorting
 
 import org.apache.log4j.Logger
-import io.grpc.{Server, ServerBuilder}
+import io.grpc.{Server, ServerBuilder, ManagedChannelBuilder}
 import distributedsorting.connection.{CheckWorkersRunningGrpc, ConnectionRequest, ConnectionRespond}
 import distributedsorting.distribute.{DistributeBlocksGrpc, DistributeRequest, DistributeRespond}
 import distributedsorting.shuffle.{GiveCriteriaGrpc, ShuffleRequest, ShuffleRespond}
 import distributedsorting.merge.{MergeBlockGrpc, MergeRequest, MergeRespond}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ExecutionContext, Future, duration}
+import scala.concurrent.ExecutionContext.Implicits.global
+import io.grpc.netty.NettyServerBuilder
+import java.util.concurrent.TimeUnit
+
 object master extends App {
   def isIPValid(strings: Array[String]): Boolean = {
     false
@@ -18,7 +22,7 @@ object master extends App {
 
   if (args.isEmpty) {
     logger.info("No arguments. Test mode with hard coded IP address starts.")
-    val masterPort = 1234
+    val masterPort = 50051
     val workerPort = List(
       "111",
       "111",
@@ -32,6 +36,20 @@ object master extends App {
       "111",
     )
     val IPaddress = "111.222.333.444"
+    val host = "localhost"
+
+    val channel = ManagedChannelBuilder
+      .forAddress(host, masterPort)
+      .usePlaintext()
+      .build
+    val request = ConnectionRequest(isMasterStart = "yes")
+
+    val stub = CheckWorkersRunningGrpc.stub(channel)
+    val f: Future[ConnectionRespond] = stub.connection(request)
+
+    f.onComplete((msg) => {
+      println("test", msg)
+    })
   } else {
     logger.info("Get arguments.")
 
@@ -42,4 +60,5 @@ object master extends App {
       e => logger.error(e)
     }
   }
+
 }

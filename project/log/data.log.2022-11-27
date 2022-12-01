@@ -1,0 +1,46 @@
+[01:11:52][INFO ](main.scala:7)-main program starts
+[01:11:52][INFO ](main.scala:12)-info1
+[01:11:52][WARN ](main.scala:13)-warn1
+[01:11:52][ERROR](main.scala:14)-error1
+[01:22:19][INFO ](main.scala:7)-main program starts
+[01:22:19][INFO ](main.scala:12)-info1
+[01:22:19][WARN ](main.scala:13)-warn1
+[01:22:19][ERROR](main.scala:14)-error1
+[01:22:35][INFO ](main.scala:7)-main program starts
+[01:22:35][INFO ](main.scala:12)-info1
+[01:22:35][WARN ](main.scala:13)-warn1
+[01:22:35][ERROR](main.scala:14)-error1
+[02:19:45][INFO ](main.scala:7)-main program starts
+[02:19:45][INFO ](main.scala:12)-info1
+[02:19:45][WARN ](main.scala:13)-warn1
+[02:19:45][ERROR](main.scala:14)-error1
+[02:20:05][INFO ](main.scala:7)-main program starts
+[02:20:05][INFO ](main.scala:12)-info1
+[02:20:05][WARN ](main.scala:13)-warn1
+[02:20:05][ERROR](main.scala:14)-error1
+[02:36:28][INFO ](main.scala:7)-main program starts
+[02:36:28][INFO ](main.scala:12)-info1
+[02:36:28][WARN ](main.scala:13)-warn1
+[02:36:28][ERROR](main.scala:14)-error1
+[02:53:30][INFO ](main.scala:7)-main program starts
+[02:53:30][INFO ](main.scala:12)-info1
+[02:53:30][WARN ](main.scala:13)-warn1
+[02:53:30][ERROR](main.scala:14)-error1
+[02:55:24][INFO ](main.scala:7)-main program starts
+[02:55:24][INFO ](main.scala:12)-info1
+[02:55:24][WARN ](main.scala:13)-warn1
+[02:55:24][ERROR](main.scala:14)-error1
+[02:55:48][INFO ](main.scala:7)-main program starts
+[02:55:48][INFO ](main.scala:12)-info1
+[02:55:48][WARN ](main.scala:13)-warn1
+[02:55:48][ERROR](main.scala:14)-error1
+[03:10:51][INFO ](main.scala:7)-main program starts
+[03:10:51][INFO ](main.scala:12)-info1
+[03:10:51][WARN ](main.scala:13)-warn1
+[03:10:51][ERROR](main.scala:14)-error1
+[23:42:08][INFO ](master.scala:10)-main program starts
+[23:42:08][INFO ](master.scala:13)-No arguments. Test mode with hard coded IP address starts.
+[23:42:37][INFO ](main.scala:7)-main program starts
+[23:42:37][INFO ](main.scala:12)-info1
+[23:42:37][WARN ](main.scala:13)-warn1
+[23:42:37][ERROR](main.scala:14)-error1

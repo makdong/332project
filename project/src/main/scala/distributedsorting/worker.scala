@@ -1,6 +1,21 @@
 package distributedsorting
 
+import org.apache.log4j.Logger
+import io.grpc._
+import distributedsorting.connection.{CheckWorkersRunningGrpc, ConnectionRequest, ConnectionRespond}
+import distributedsorting.distribute.{DistributeBlocksGrpc, DistributeRequest, DistributeRespond}
+import distributedsorting.shuffle.{GiveCriteriaGrpc, ShuffleRequest, ShuffleRespond}
+import distributedsorting.merge.{MergeBlockGrpc, MergeRequest, MergeRespond}
+import scala.concurrent.{ExecutionContext, Future}
+
 object worker {
+    def apply() = {
+        val channel =
+            ManagedChannelBuilder
+                .forAddress("192.168.1.44", 9000)
+                .build()
+    }
+
     val unsortedBlocks: List[Block] = get()
 
     lazy val sortedBlocks: List[Block] = sort()

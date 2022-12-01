@@ -7,7 +7,7 @@ If every worker is ready, then continue the program.
 If it is not, we need timeout.
  */
 service CheckWorkersRunning {
-  rpc Connection (ConnectionRequest) returns (ConnectionRespond) {}
+  rpc connection (ConnectionRequest) returns (ConnectionRespond) {}
 }
 
 message ConnectionRequest {
