@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="sbt: org.scalatestplus:junit-4-13_2.13:3.2.14.0:jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatestplus/junit-4-13_2.13/3.2.14.0/junit-4-13_2.13-3.2.14.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatestplus/junit-4-13_2.13/3.2.14.0/junit-4-13_2.13-3.2.14.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatestplus/junit-4-13_2.13/3.2.14.0/junit-4-13_2.13-3.2.14.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

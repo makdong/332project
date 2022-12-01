@@ -11,11 +11,11 @@ service CheckWorkersRunning {
 }
 
 message ConnectionRequest {
-  string isMasterStart = 1;
+  bool isMasterStart = 1;
 }
 
 message ConnectionRespond {
-  string isWorkerStart = 1;
+  bool isWorkerStart = 1;
 }
 
 
