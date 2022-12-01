@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package distributedsorting;
+/*
+After get the sample value from the worker,
+main give criteria to each worker that
+which data should go into which worker.
+ */
+service GiveCriteria {
+  rpc Shuffle (ShuffleRequest) returns (ShuffleRespond) {}
+}
+
+message ShuffleRequest {
+  string globalKeyMinimum = 1;
+  string globalKeyMaximum = 2;
+  int32 numWorkers = 3;
+}
+
+/*
+query should contain the value of key & data and it's destination.
+ */
+message ShuffleRespond {
+  string query = 1;
+}
+
+
