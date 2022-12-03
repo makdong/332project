@@ -9,12 +9,12 @@ object TypeConverter {
         def toLine = line
     }
 
-    def BlockToEntrys(block: String): List[Entry] = {
+    def BlockToEntries(block: String): List[Entry] = {
         block.split("\n").toList.map(Entry(_))
     }
 
-    def EntrysToBlock(entrys: List[Entry]): String = {
-        entrys.foldLeft("")(_ + _.toLine + "\n")
+    def EntriesToBlock(entries: List[Entry]): String = {
+        entries.foldLeft("")(_ + _.toLine + "\n")
     }
 }
 

@@ -5,10 +5,10 @@ import java.io._
 
 object FileManager {
     def readAsBlock(path: String): String = {
-        TypeConverter.EntrysToBlock(readAsEntrys(path))
+        TypeConverter.EntriesToBlock(readAsEntries(path))
     }
 
-    def readAsEntrys(path: String): List[TypeConverter.Entry] = {
+    def readAsEntries(path: String): List[TypeConverter.Entry] = {
         Source.fromFile(path).getLines.toList.map(TypeConverter.Entry(_))
     }
 

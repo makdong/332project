@@ -37,9 +37,9 @@ class Tests extends AnyFunSuite {
 
     val block = "~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666\nAsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111\n"
     test("block test") {
-        val entrys = TypeConverter.BlockToEntrys(block)
-        assert(entrys == entryList)
-        val rebuildedBlock = TypeConverter.EntrysToBlock(entrys)
+        val entries = TypeConverter.BlockToEntries(block)
+        assert(entries == entryList)
+        val rebuildedBlock = TypeConverter.EntriesToBlock(entries)
         assert(rebuildedBlock == block)
     }
 
