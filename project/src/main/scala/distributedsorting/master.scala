@@ -69,6 +69,16 @@ object master extends App {
     true
   }
 
+
+  def sortKeyMedian(keyMedian: List[String]): List[String] = {
+    keyMedian.sorted
+  }
+  def calcWorkerOrder(keyMedian: List[String], keyMedianSorted: List[String]): List[Int] = {
+    keyMedianSorted map (key => (keyMedian indexOf key) + 1)
+  }
+
+
+
   val logger = Logger.getLogger(this.getClass.getName)
   logger.info("main program starts")
 
@@ -113,4 +123,6 @@ object master extends App {
       e => logger.error(e)
     }
   }
+
+
 }
