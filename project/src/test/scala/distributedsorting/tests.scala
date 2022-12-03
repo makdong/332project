@@ -42,4 +42,9 @@ class Tests extends AnyFunSuite {
         val rebuildedBlock = TypeConverter.EntrysToBlock(entrys)
         assert(rebuildedBlock == block)
     }
+
+    test("block sort test") {
+        val sortedBlock = worker.sortBlock(block)
+        assert(sortedBlock == "AsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111\n~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666\n")
+    }
 }
