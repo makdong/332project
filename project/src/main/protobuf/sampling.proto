@@ -6,16 +6,16 @@ master should check whether the workers are running or not.
 If every worker is ready, then continue the program.
 If it is not, we need timeout.
  */
-service Connection {
-  rpc Connection (ConnectionRequest) returns (ConnectionRespond) {}
+service Sampling {
+  rpc Sampling (SamplingRequest) returns (SamplingRespond) {}
 }
 
-message ConnectionRequest {
-  string isMasterStart = 1;
+message SamplingRequest {
+  bool isConnected = 1;
 }
 
-message ConnectionRespond {
-  string isWorkerStart = 1;
+message SamplingRespond {
+  string keyMedian = 1;
 }
 
 

@@ -2,10 +2,11 @@ package distributedsorting
 
 import org.apache.log4j.Logger
 import io.grpc.{Server, ServerBuilder}
-import distributedsorting.connection.{CheckWorkersRunningGrpc, ConnectionRequest, ConnectionRespond}
-import distributedsorting.distribute.{DistributeBlocksGrpc, DistributeRequest, DistributeRespond}
-import distributedsorting.shuffle.{GiveCriteriaGrpc, ShuffleRequest, ShuffleRespond}
-import distributedsorting.merge.{MergeBlockGrpc, MergeRequest, MergeRespond}
+import distributedsorting.connection.{ConnectionGrpc, ConnectionRequest, ConnectionRespond}
+import distributedsorting.distribute.{DistributeGrpc, DistributeRequest, DistributeRespond}
+import distributedsorting.shuffle.{ShuffleGrpc, ShuffleRequest, ShuffleRespond}
+import distributedsorting.merge.{MergeGrpc, MergeRequest, MergeRespond}
+import distributedsorting.sampling.{SamplingGrpc, SamplingRequest, SamplingRespond}
 
 import scala.concurrent.{ExecutionContext, Future}
 object master extends App {
@@ -40,7 +41,7 @@ object master extends App {
             port_array.foreach(past_port => if(past_port == temp_port) throw Invalid)
             port_array +:= temp_port
           }
-        } 
+        }
 
         else {
           if(ip_array.isEmpty) {
@@ -104,7 +105,7 @@ object master extends App {
 
     try {
       assert(args.length != 1, "Args.length is 1. There is no worker's IP address. Stop the program.")
-      
+
       val args_array = args.split(" ")
       val args_length = args_array.length
       if (args_array.apply(0) == "-p") then {
