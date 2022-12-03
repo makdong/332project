@@ -80,18 +80,31 @@ Seongjin, Choi : (2)) \
 Together : (0) \
 
 * Week 7 \
-(0) Implement merge algorithm (X) \
-(1) Implement partitioning (X) \
-(2) Implement sampling (X) \
-(3) Implement shuffling (X) \
-(4) Debugging \
+(0) Implement gRPC setting (async, sync) (O) \
+(1) Implement reading file (O) \
+(2) Implement type converter object, for block (O) \
+(3) Implement distributing blocks (O) \
+(4) Implement internal sort (O) \
+(5) Implement acquiring worker order (O) \
+(6) Implement getting key medians (O) \
+(7) Implement sending all key median (O) \
+(8) Implement shuffling (O) \
+(9) Implement merge sorting (O) \
+(10) Combine Implemented functions with gRPC (M)
 
-Dongha, Kim : (0), (3) \
-Yunseong, Moon : (1)) \
-Seongjin, Choi : (2) \
-Together : (4) \
+
+Dongha, Kim : (5), (6), (7), (8) \
+Yunseong, Moon : (1), (2), (3), (4), (9) \
+Seongjin, Choi : (0), (10) \
 
 * Week 8 \
-Testing \
-Prepare Presentation
+(0) Combine All Together
+(1) Debugging
+(2) Testing
+(3) Preparing Presentation
+
+Dongha, Kim : (3) \
+Yunseong, Moon : (2)) \
+Seongjin, Choi : (0) \
+Together : (1) \
 
