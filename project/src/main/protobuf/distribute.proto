@@ -5,8 +5,8 @@ package distributedsorting;
 MainDistributeBlocks distribute the blocks to each workers,
 and get the sample value from the worker.
  */
-service DistributeBlocks {
-  rpc Sort (DistributeRequest) returns (DistributeRespond) {}
+service Distribute {
+  rpc Distribute (DistributeRequest) returns (DistributeRespond) {}
 }
 
 /*
@@ -15,10 +15,9 @@ we assume that every data is distributed already in the workers.
 If the data is not distributed, we need to store the data in the message.
  */
 message DistributeRequest {
-  bool distributed = 1;
+  int32 port = 1;
 }
 
 message DistributeRespond {
-  string keyMinimum = 1;
-  string keyMaximum = 2;
+  string data = 1;
 }

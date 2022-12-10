@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit
 
 object Invalid extends Exception {}
 object master extends App {
+  type Block = String
+  type Key = String
   def main(args: Array[String]): Unit = {
     assert(args.length < 1 || args(0).toInt > 0, "Not Enough Arguemts")
     val workerNum = args(0).toInt

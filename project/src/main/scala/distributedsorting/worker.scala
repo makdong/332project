@@ -6,21 +6,82 @@ import io.grpc._
 import scala.concurrent.{ExecutionContext, Future}
 
 object worker {
-    val unsortedBlocks: List[Block] = get()
+    type Block = String
+    type Key = String
 
-    lazy val sortedBlocks: List[Block] = sort()
+    def getMedianKeyFromListEntry(entryList: List[TypeConverter.Entry]) : String = {
+        val length = entryList.length
+        val idx = length / 2
 
-    def sort(): List[Block] = {
-        unsortedBlocks.sortWith((x, y) => x.key < y.key)
+
+        entryList(idx).key
     }
 
-    def get(): List[Block] = {
-        val line1 = "~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666"
-        val line2 = "AsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111"
+    def getMedianKeyFromKeyList(keyList: List[String]) : String = {
+        val length = keyList.length
+        val idx = length / 2
+        val sortedKeyList = keyList.sorted
 
-        val block1: Block = Block(line1)
-        val block2: Block = Block(line2)
-        List(block1, block2)
+        sortedKeyList(idx)
+    }
+
+    def key2String(keys : List[String]) : String = {
+        keys.mkString
+    }
+
+    def string2Key(key: String) : List[String] = {
+        key.grouped(10).toList
+    }
+
+    def getWorkerOrderUsingKey(keyList: List[String]) : List[Int] = {
+        val sortedKeyList = keyList.sorted
+
+        sortedKeyList.map(e => keyList.indexOf(e))
+    }
+
+    /*
+    get list of entry list, and the range as pivot value.
+    return the List of block that the key fits into the range.
+     */
+    def entryListList2blockList(entryListList: List[List[TypeConverter.Entry]], minRange: String, maxRange: String) : List[Block] = {
+        val filteredEntryList = entryListList.flatten filter (
+            e => (e.key < maxRange && e.key >= minRange)
+        )
+
+        TypeConverter.string2block(TypeConverter.entryList2Block(filteredEntryList))
+    }
+    def sort(entries: List[TypeConverter.Entry]): List[TypeConverter.Entry] = {
+        entries.sortWith((x, y) => x.key < y.key)
+    }
+
+    def sortBlock(block: String): String = {
+        def entries = TypeConverter.block2EntryList(block)
+        def sortedEntry = sort(entries)
+        def sortedBlock = TypeConverter.entryList2Block(sortedEntry)
+        sortedBlock
+    }
+
+    def merge(listOfBlock: List[List[Int]]) = {
+        val endValue = -1
+        def findMax(listOfBlock: List[Int]) = {
+            def line = listOfBlock.max
+            def idx = listOfBlock.lastIndexOf(line)
+            (idx, line)
+        }
+
+        def mergeRec(listOfBlock: List[List[Int]]) {
+            val listOfHead = listOfBlock.map(block => {
+                if (block.nonEmpty) block.head
+                else endValue
+            })
+            val max = findMax(listOfHead)
+
+            if (max._2 != endValue) {
+                println(max._2)
+                mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail))
+            }
+        }
+        mergeRec(listOfBlock)
     }
 
     def main() = {

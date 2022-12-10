@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package distributedsorting;
+/*
+master should check whether the workers are running or not.
+If every worker is ready, then continue the program.
+If it is not, we need timeout.
+ */
+service Sampling {
+  rpc Sampling (SamplingRequest) returns (SamplingRespond) {}
+}
+
+message SamplingRequest {
+  bool isConnected = 1;
+}
+
+message SamplingRespond {
+  string keyMedian = 1;
+}
+
+
+
