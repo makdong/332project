@@ -4,6 +4,19 @@ import scala.io.Source
 import java.io._
 
 object FileManager {
+    val blockSize = 32000
+
+    def readFileAsBlock(filePath: String) = {
+        def lines = Source.fromFile(filePath).getLines.map(_.concat("\n")).toList
+        
+        def groupedLines = lines.grouped(blockSize).toList
+        
+        groupedLines.map(_.mkString)
+        // .mkString
+
+        // lines
+    }
+
     def readAsBlock(path: String): String = {
         TypeConverter.EntriesToBlock(readAsEntries(path))
     }
