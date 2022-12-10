@@ -13,9 +13,9 @@ object worker {
     }
 
     def sortBlock(block: String): String = {
-        def entries = TypeConverter.BlockToEntries(block)
+        def entries = TypeConverter.block2EntryList(block)
         def sortedEntry = sort(entries)
-        def sortedBlock = TypeConverter.EntriesToBlock(sortedEntry)
+        def sortedBlock = TypeConverter.entryList2Block(sortedEntry)
         sortedBlock
     }
 }

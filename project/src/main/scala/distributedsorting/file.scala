@@ -18,7 +18,7 @@ object FileManager {
     }
 
     def readAsBlock(path: String): String = {
-        TypeConverter.EntriesToBlock(readAsEntries(path))
+        TypeConverter.entryList2Block(readAsEntries(path))
     }
 
     def readAsEntries(path: String): List[TypeConverter.Entry] = {
