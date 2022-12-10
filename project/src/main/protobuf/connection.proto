@@ -6,17 +6,45 @@ master should check whether the workers are running or not.
 If every worker is ready, then continue the program.
 If it is not, we need timeout.
  */
-service Connection {
-  rpc Connection (ConnectionRequest) returns (ConnectionRespond) {}
-}
 
 message ConnectionRequest {
-  string isMasterStart = 1;
+  string ip = 1;
+  int32 port = 2;
 }
 
-message ConnectionRespond {
-  string isWorkerStart = 1;
+message ConnectionResponse {
+  int32 id = 1;
 }
 
+message SamplingRequest {
+  int32 id = 1;
+  string key = 2;
+}
 
+message workerSamplingInfo{
+  int32 id = 1;
+  string ip = 2;
+  int32 port = 3;
+  string key = 4;
+}
+
+message SamplingResponse {
+  int32 workerNum = 1;
+  repeated workerSamplingInfo workerInfo = 2;
+}
+
+message TerminateRequest {
+  int32 id = 1;
+  bool done = 2;
+}
+
+message TerminateResponse {
+
+}
+
+service Connection{
+  rpc connect(ConnectionRequest) returns (ConnectionResponse) {}
+  rpc sample(SamplingRequest) returns (SamplingResponse) {}
+  rpc terminate(TerminateRequest) returns (TerminateResponse) {}
+}
 
