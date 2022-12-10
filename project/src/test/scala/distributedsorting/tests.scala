@@ -12,8 +12,8 @@ class Tests extends AnyFunSuite {
         assert("Hello World" == "Hello World")
     }
 
-    val line1 = "~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666"
-    val line2 = "AsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111"
+    val line1 = "~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666\n"
+    val line2 = "AsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111\n"
 
     val entry1 = TypeConverter.Entry(line1)
     val entry2 = TypeConverter.Entry(line2)
@@ -37,9 +37,9 @@ class Tests extends AnyFunSuite {
 
     val block = "~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666\nAsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111\n"
     test("block test") {
-        val entries = TypeConverter.BlockToEntries(block)
+        val entries = TypeConverter.block2EntryList(block)
         assert(entries == entryList)
-        val rebuildedBlock = TypeConverter.EntriesToBlock(entries)
+        val rebuildedBlock = TypeConverter.entryList2Block(entries)
         assert(rebuildedBlock == block)
     }
 
