@@ -2,6 +2,7 @@ package src.main.scala.distributedsorting
 
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
+import scala.annotation.tailrec
 
 import scala.concurrent.{Promise}
 
@@ -35,11 +36,13 @@ class ConnectionClient {
         val response = blockingStub.connect(new ConnectionRequest())
         id = response.id
     }
+    @tailrec
     def sampleRequest():Unit = {
-        
+        logger.info("Client is requesting every key")
+        val response = blockingStub.sample(new SamplingRequest)
     }
     def sample():Unit={
-        logger.info("Client is requesting  Sampling")
+        
     }
 
     def shuffle():Unit={
