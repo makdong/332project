@@ -1,5 +1,6 @@
 package distributedsorting
 
+
 object TypeConverter {
     case class Entry(line: String) {
         assert(line.length == 99)
@@ -11,6 +12,7 @@ object TypeConverter {
 
     def block2EntryList(block: String): List[Entry] = {
         block.split("\n").toList.map(line => Entry(line.concat("\n")))
+
     }
 
     def entryList2Block(entryList: List[Entry]): String = {
