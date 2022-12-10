@@ -1,5 +1,6 @@
 package distributedsorting
 
+import java.io._
 import distributedsorting.connection._
 import io.grpc._
 
@@ -61,27 +62,30 @@ object worker {
         sortedBlock
     }
 
-    def merge(listOfBlock: List[List[Int]]) = {
-        val endValue = -1
-        def findMax(listOfBlock: List[Int]) = {
-            def line = listOfBlock.max
+    def merge(listOfBlock: List[List[TypeConverter.Entry]]) = {
+        val endValue = TypeConverter.Entry("ENDVALUE!!  00000000000000000000000000000000  0000000000000000000000000000000000000000000000000000\n")
+        def findMax(listOfBlock: List[TypeConverter.Entry]) = {
+            def line = sort(listOfBlock).head
             def idx = listOfBlock.lastIndexOf(line)
             (idx, line)
         }
 
-        def mergeRec(listOfBlock: List[List[Int]]) {
-            val listOfHead = listOfBlock.map(block => {
+        val writer = new FileWriter(new File("./merged.txt"))
+        def mergeRec(listOfBlock: List[List[TypeConverter.Entry]]) {
+            val listOfHead: List[TypeConverter.Entry] = listOfBlock.map(block => {
                 if (block.nonEmpty) block.head
                 else endValue
             })
             val max = findMax(listOfHead)
 
             if (max._2 != endValue) {
-                println(max._2)
+                print(max._2.line)
+                writer.write(max._2.line)
                 mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail))
             }
         }
         mergeRec(listOfBlock)
+        writer.close()
     }
 
     def main() = {
