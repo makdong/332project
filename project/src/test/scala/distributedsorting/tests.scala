@@ -47,4 +47,31 @@ class Tests extends AnyFunSuite {
         val sortedBlock = worker.sortBlock(block)
         assert(sortedBlock == "AsfAGHM5om  00000000000000000000000000000000  0000222200002222000022220000222200002222000000001111\n~sHd0jDv6X  00000000000000000000000000000001  77779999444488885555CCCC777755555555BBBB666644446666\n")
     }
+
+    test("sort test") {
+        val block1 = FileManager.readFileAsBlock("./sample1.txt").head
+        val block2 = FileManager.readFileAsBlock("./sample2.txt").head
+        val block3 = FileManager.readFileAsBlock("./sample3.txt").head
+
+        val sorted1 = worker.sortBlock(block1)
+        val sorted2 = worker.sortBlock(block2)
+        val sorted3 = worker.sortBlock(block3)
+
+        FileManager.write("./sortedSample1.txt", sorted1)
+        FileManager.write("./sortedSample2.txt", sorted2)
+        FileManager.write("./sortedSample3.txt", sorted3)
+    }
+
+    test("merge test") {
+        val block1 = FileManager.readFileAsBlock("./sortedSample1.txt").head
+        val block2 = FileManager.readFileAsBlock("./sortedSample2.txt").head
+        val block3 = FileManager.readFileAsBlock("./sortedSample3.txt").head
+
+        val listEntry1 = TypeConverter.block2EntryList(block1)
+        val listEntry2 = TypeConverter.block2EntryList(block2)
+        val listEntry3 = TypeConverter.block2EntryList(block3)
+
+        def list = List(listEntry1, listEntry2, listEntry3)
+        worker.merge(list)
+    }
 }

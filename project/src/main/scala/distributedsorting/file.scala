@@ -6,7 +6,7 @@ import java.io._
 object FileManager {
     val blockSize = 32000
 
-    def readFileAsBlock(filePath: String) = {
+    def readFileAsBlock(filePath: String): List[String] = {
         def lines = Source.fromFile(filePath).getLines.map(_.concat("\n")).toList
         
         def groupedLines = lines.grouped(blockSize).toList
