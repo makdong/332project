@@ -10,6 +10,8 @@ import distributedsorting.sampling.{SamplingGrpc, SamplingRequest, SamplingRespo
 
 import scala.concurrent.{ExecutionContext, Future}
 object master extends App {
+  type Block = String
+  type Key = String
   def isIPValid(isPort: Boolean, ips: Array[String]): Boolean = {
     try{
       var ip_array = Array[String]()
