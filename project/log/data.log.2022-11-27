@@ -1,16 +1,4 @@
-[02:25:30][INFO ](main.scala:7)-main program starts
-[02:25:30][INFO ](main.scala:10)-No arguments. Test mode with hard coded IP address starts.
-[02:25:38][INFO ](main.scala:7)-main program starts
-[02:25:38][INFO ](main.scala:10)-No arguments. Test mode with hard coded IP address starts.
-[02:25:54][INFO ](main.scala:7)-main program starts
-[02:25:54][INFO ](main.scala:10)-No arguments. Test mode with hard coded IP address starts.
-[02:27:00][INFO ](main.scala:7)-main program starts
-[02:27:00][INFO ](main.scala:10)-No arguments. Test mode with hard coded IP address starts.
-[02:27:00][ERROR](main.scala:18)-java.lang.AssertionError: assertion failed: Args.length is 1. There is no worker's IP address. Stop the program.
-[02:30:56][INFO ](main.scala:11)-main program starts
-[02:30:56][INFO ](main.scala:14)-No arguments. Test mode with hard coded IP address starts.
-[02:30:56][ERROR](main.scala:23)-java.lang.AssertionError: assertion failed: The format of IP address is invalid. Stop the program.
-[22:03:42][INFO ](master.scala:10)-main program starts
-[22:03:42][INFO ](master.scala:13)-No arguments. Test mode with hard coded IP address starts.
-[22:04:25][INFO ](master.scala:10)-main program starts
-[22:04:25][INFO ](master.scala:13)-No arguments. Test mode with hard coded IP address starts.
+[22:45:21][INFO ](main.scala:7)-main program starts
+[22:45:21][INFO ](main.scala:12)-info1
+[22:45:21][WARN ](main.scala:13)-warn1
+[22:45:21][ERROR](main.scala:14)-error1

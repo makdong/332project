@@ -1,19 +1,43 @@
 package distributedsorting
 
-import distributedsorting.connection.CheckWorkersRunningGrpc.CheckWorkersRunningBlockingStub
 import org.apache.log4j.Logger
 import io.grpc._
-import distributedsorting.connection.{CheckWorkersRunningGrpc, ConnectionRequest, ConnectionRespond}
-import distributedsorting.distribute.{DistributeBlocksGrpc, DistributeRequest, DistributeRespond}
-import distributedsorting.shuffle.{GiveCriteriaGrpc, ShuffleRequest, ShuffleRespond}
-import distributedsorting.merge.{MergeBlockGrpc, MergeRequest, MergeRespond}
+import distributedsorting.connection._
+import distributedsorting.distribute._
+import distributedsorting.shuffle._
+import distributedsorting.merge._
+import network.ConnectionServer
+import java.net._
 
 import scala.concurrent.{ExecutionContext, Future}
 import java.util.concurrent.TimeUnit
 
 object Invalid extends Exception {}
 object master extends App {
-  main()
+  def main(args: Array[String]: Unit) {
+    assert(args.length < 1 || args(0).toInt > 0, "Not Enough Arguemts")
+    val workerNum = args(0).toInt
+    val port = {
+      if (args.length == 2) {
+        args(1).toInt
+      }
+      else {
+        1343
+      }
+    }
+    val server = new ConnectionServer(ExecutionContext.global, port, workerNum)
+
+    try{
+      server.start
+      server.blockUntilShutdown
+    } catch {
+      case e: Exception => println(e)
+    }
+    finally {
+      server.stop
+    }
+  }
+  /*
   def isIPValid(isPort: Boolean, ips: Array[String]): Boolean = {
     try {
       var ip_array = Array[String]()
@@ -80,10 +104,10 @@ object master extends App {
     val logger = Logger.getLogger(this.getClass.getName)
     logger.info("main program starts")
 
-    val channel = ManagedChannelBuilder.forAddress("localhost", 9000).usePlaintext().build()
-    val blockingStub = CheckWorkersRunningGrpc.blockingStub(channel)
+    //val channel = ManagedChannelBuilder.forAddress("localhost", 9000).usePlaintext().build()
+    //val blockingStub = CheckWorkersRunningGrpc.blockingStub(channel)
 
-    val master = new master(channel, blockingStub)
+    //val master = new master(channel, blockingStub)
 
     if (args.isEmpty) {
       logger.info("No arguments. Test mode with hard coded IP address starts.")
@@ -113,12 +137,14 @@ object master extends App {
         if (args.apply(0) == "-p") {
           val worker_num = args.apply(1).toInt
           val ip_array = args.slice(2, args_length)
+          assert(worker_num != ip_array.length, "Not Enough Arguemts")
           assert(isIPValid(true, ip_array), "The format of IP address is invalid. Stop the program.")
           logger.info("IP Addresses and Port are Valid")
         }
         else {
           val worker_num = args.apply(0).toInt
           val ip_array = args.slice(1, args_length)
+          assert(worker_num != ip_array.length, "Not Enough Arguemts")
           assert(isIPValid(false, ip_array), "The format of IP address is invalid. Stop the program.")
           logger.info("IP Addresses and Port are Valid")
         }
@@ -126,15 +152,18 @@ object master extends App {
         case e : Throwable => logger.error(e)
       }
     }
-
+    /*
     try {
       master.checkWorkersRunning()
     } finally {
       master.shutdown()
     }
+    */
   }
+  */
 }
 
+/*
 class master private(private val channel: ManagedChannel, private val blockingStub: CheckWorkersRunningBlockingStub) {
   val logger = Logger.getLogger(this.getClass.getName)
   def shutdown(): Unit = {
@@ -153,3 +182,4 @@ class master private(private val channel: ManagedChannel, private val blockingSt
     }
   }
 }
+*/

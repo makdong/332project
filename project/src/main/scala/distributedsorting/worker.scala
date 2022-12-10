@@ -1,7 +1,7 @@
 package distributedsorting
 
-import distributedsorting.connection.{CheckWorkersRunningGrpc, ConnectionRequest, ConnectionRespond}
-import io.grpc.{Server, ServerBuilder}
+import distributedsorting.connection._
+import io.grpc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -25,13 +25,14 @@ object worker {
 
     def main() = {
 
-        val server = new worker(ExecutionContext.global)
-        server.start()
-        server.blockUntilShutdown()
+        //val server = new worker(ExecutionContext.global)
+        //server.start()
+        //server.blockUntilShutdown()
     }
 }
 
 
+/*
 class worker(executionContext: ExecutionContext) { self =>
     private[this] var server: Server = null
 
@@ -68,3 +69,4 @@ class worker(executionContext: ExecutionContext) { self =>
         }
     }
 }
+*/
