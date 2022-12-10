@@ -12,9 +12,6 @@ object FileManager {
         def groupedLines = lines.grouped(blockSize).toList
         
         groupedLines.map(_.mkString)
-        // .mkString
-
-        // lines
     }
 
     def readAsBlock(path: String): String = {

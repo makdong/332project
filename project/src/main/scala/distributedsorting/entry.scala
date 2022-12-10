@@ -16,5 +16,16 @@ object TypeConverter {
     def entryList2Block(entryList: List[Entry]): String = {
         entryList.map(_.toLine).mkString
     }
+
+    def string2block(string: String): List[String] = {
+        val blockSize = 32000
+        def lines = string.split("\n").toList.map(line => line.concat("\n"))
+        def groupedLines = lines.grouped(blockSize).toList
+        groupedLines.map(_.mkString)
+    }
+
+    def block2string(blocks: List[String]): String = {
+        blocks.mkString
+    }
 }
 
