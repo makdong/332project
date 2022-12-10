@@ -6,7 +6,6 @@ import distributedsorting.connection._
 import distributedsorting.distribute._
 import distributedsorting.shuffle._
 import distributedsorting.merge._
-import network.ConnectionServer
 import java.net._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 object Invalid extends Exception {}
 object master extends App {
-  def main(args: Array[String]: Unit) {
+  def main(args: Array[String]): Unit = {
     assert(args.length < 1 || args(0).toInt > 0, "Not Enough Arguemts")
     val workerNum = args(0).toInt
     val port = {
@@ -37,6 +36,7 @@ object master extends App {
       server.stop
     }
   }
+  */
   /*
   def isIPValid(isPort: Boolean, ips: Array[String]): Boolean = {
     try {
@@ -160,8 +160,8 @@ object master extends App {
     }
     */
   }
-  */
 }
+
 
 /*
 class master private(private val channel: ManagedChannel, private val blockingStub: CheckWorkersRunningBlockingStub) {

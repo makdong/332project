@@ -10,7 +10,7 @@ import distributedsorting.connection._
 
 class ConnectionClient {
     val logger: Logger = Logger.getLogger(classOf[ConnectionClient].getName)
-    logger.setLevel(loggerLevel.level)
+    //logger.setLevel(loggerLevel.level)
 
     val channel = ManagedChannelBuilder.forAddress().usePlaintext.build
     val blockingStub = ConnectionGrpc.blockingStub(channel)
@@ -30,9 +30,23 @@ class ConnectionClient {
         }
     }
 
-    def connect_to_master():Unit = {
+    def connectRequest():Unit = {
         logger.info("Client is Connecting to Master")
         val response = blockingStub.connect(new ConnectionRequest())
         id = response.id
+    }
+    def sampleRequest():Unit = {
+        
+    }
+    def sample():Unit={
+        logger.info("Client is requesting  Sampling")
+    }
+
+    def shuffle():Unit={
+        logger.info("Client starts Shuffling")
+    }
+
+    def merge():Unit={
+        logger.info("Client starts Merging")
     }
 }
