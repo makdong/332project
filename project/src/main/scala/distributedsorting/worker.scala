@@ -4,9 +4,10 @@ object worker {
     type Block = String
     type Key = String
 
-    def getMedianKeyFromListEntry(entryList: List[Entry]) : String = {
+    def getMedianKeyFromListEntry(entryList: List[TypeConverter.Entry]) : String = {
         val length = entryList.length
         val idx = length / 2
+
 
         entryList(idx).key
     }
@@ -37,12 +38,14 @@ object worker {
     get list of entry list, and the range as pivot value.
     return the List of block that the key fits into the range.
      */
-    def entryListList2blockList(entryListList: List[List[Entry]], minRange: String, maxRange: String) : List[Block] = {
-        entryListList.flatten filter (
+    def entryListList2blockList(entryListList: List[List[TypeConverter.Entry]], minRange: String, maxRange: String) : List[Block] = {
+        val filteredEntryList = entryListList.flatten filter (
             e => (e.key < maxRange && e.key >= minRange)
         )
+
+        TypeConverter.string2block(TypeConverter.entryList2Block(filteredEntryList))
     }
-    def sort(entries: List[Entry]): List[Entry] = {
+    def sort(entries: List[TypeConverter.Entry]): List[TypeConverter.Entry] = {
         entries.sortWith((x, y) => x.key < y.key)
     }
 
