@@ -46,7 +46,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         logger.info(s"${workerIp}:${workerPort}")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
-        partition_Server = new partitionServer(ExecutionContext.global, workerPort+10, id)
+        partition_Server = new partitionServer(ExecutionContext.global, workerPort+58, id)
     }
 
     def sortRequest():Unit = {
@@ -99,6 +99,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
             var client:partitionClient = null
             try{
                 val worker_i = worker_map(work_id)
+                logger.info(s"${worker_i.port + 58}")
                 client = new partitionClient(id, worker_i.ip, worker_i.port, workerNum, key)
                 logger.info("here11111")
                 client.requestShuffle
