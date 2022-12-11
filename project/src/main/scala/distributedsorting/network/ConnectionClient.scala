@@ -132,7 +132,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
             try{
                 val worker_i = worker_map(work_id)
                 logger.info(s"${worker_i.port + 58}")
-                client = new partitionClient(id, worker_i.ip, worker_i.port+58, workerNum, key)
+                client = new partitionClient(id, worker_i.ip, worker_i.port, workerNum, key)
                 client.requestShuffle
                 partition_list = partition_list.appended(TypeConverter.string2block(client.partition))
             }
