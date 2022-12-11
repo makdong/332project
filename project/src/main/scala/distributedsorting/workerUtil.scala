@@ -3,6 +3,7 @@ package src.main.scala.distributedsorting
 import java.io._
 import distributedsorting.connection._
 import io.grpc._
+import scala.util._
 
 import scala.concurrent.{ExecutionContext, Future}
 

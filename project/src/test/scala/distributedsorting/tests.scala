@@ -128,6 +128,7 @@ class Tests extends AnyFunSuite {
         val listEntry15 = TypeConverter.block2EntryList(sortedBlock15)
         val listEntry16 = TypeConverter.block2EntryList(sortedBlock16)
        
+        println("randomKey", workerUtil.getMedianKeyFromListEntry(listEntry1))
         println("listEntry1", listEntry1.size)
         println("listEntry2", listEntry1.size)
         println("listEntry3", listEntry1.size)
