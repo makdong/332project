@@ -4,6 +4,7 @@ import distributedsorting.connection._
 import io.grpc._
 import java.net._
 import java.io._
+import scala.collection.mutable.Map
 
 object worker {
     def main(args: Array[String]): Unit = {
@@ -46,6 +47,8 @@ object worker {
         val workerPort:Int = 8888
 
         val client = new ConnectionClient(masterIp, masterPort, workerIp, workerPort)
+        var keyOrder : List[Int] = null
+        var block4Merge : List[List[String]] = null
 
         try{
             client.connectRequest
@@ -58,16 +61,48 @@ object worker {
 
             client.sortRequest
 
-            val keyList = sortedBlockList.map(block => workerUtil.getMedianKeyFromListEntry(TypeConverter.block2EntryList(block)))
-            val medianKey = workerUtil.getMedianKeyFromKeyList(keyList)
+            val perBlockKeyList = sortedBlockList.map(block => workerUtil.getMedianKeyFromListEntry(TypeConverter.block2EntryList(block)))
+            val medianKey = workerUtil.getMedianKeyFromKeyList(perBlockKeyList)
 
             client.key = medianKey
 
             client.sampleRequest
 
+            val keyMap:Map[Int, workerInfo] = client.worker_map
+            val keyList: List[String] = List()
+            for(worker_id <- (1 to keyMap.size)){
+                keyList.appended(keyMap(worker_id).key)
+            }
 
+            keyOrder = workerUtil.getWorkerOrderUsingKey(keyList)
 
+            val sortedKeyList = keyList.sorted
+
+            val blockListListForShuffle = keyList map (
+              currentKey => {
+                  val keyIndex = keyList.indexOf(currentKey)
+
+                  val minRange = {
+                      if (keyIndex == 0) {
+                          "          "
+                      } else {
+                          sortedKeyList(keyIndex - 1)
+                      }
+                  }
+                  val maxRange = {
+                      if (keyIndex == keyList.size - 1) {
+                          "~~~~~~~~~~"
+                      } else {
+                          sortedKeyList(keyIndex)
+                      }
+                  }
+                  workerUtil.entryListList2blockList(sortedBlockList.map(TypeConverter.block2EntryList(_)), minRange, maxRange)
+              }
+            )
+            client.partition_to_send = blockListListForShuffle
             client.shuffling
+
+            block4Merge = client.partition_list
 
             client.shutdown(true)
         }catch{
@@ -75,5 +110,8 @@ object worker {
         }finally{
             client.shutdown(false)
         }
+
+        workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
+
     }
 }

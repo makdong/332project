@@ -14,7 +14,7 @@ object master {
   type Block = String
   type Key = String
   def main(args: Array[String]): Unit = {
-    assert(args.length < 1 || args(0).toInt > 0, "Not Enough Arguemts")
+    assert(args.length < 1 || args(0).toInt > 0, "Not Enough Arguments")
     val workerNum = args(0).toInt
     val port = {
       if (args.length == 2) {

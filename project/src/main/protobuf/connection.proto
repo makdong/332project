@@ -25,7 +25,7 @@ message SortResponse {
 
 message TerminateRequest {
   int32 id = 1;
-  bool done = 2;
+  bool done = 3;
 }
 
 message TerminateResponse {

@@ -26,7 +26,8 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     var key:String = null
     val worker_map : Map[Int, workerInfo] = Map()
     var partition_Server:partitionServer = null
-    val partition_list = List()
+    val partition_list = List[List[String]]()
+    var partition_to_send:List[List[String]] = null
 
     def shutdown(success:Boolean): Unit = {
         logger.info("Client is Shutting Down")
@@ -79,7 +80,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                 partition_Server.start()
             }
             case 2 => {
-                logger.info("Exception Occured")
+                logger.info("Exception Occurred")
             }
             case _ => {
                 Thread.sleep(5)
@@ -90,6 +91,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
 
     def shuffling():Unit={
         logger.info("Client starts Shuffling")
+        partition_Server.partition_list = partition_to_send
         for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
             logger.info(s"Client requesting partition from worker ${work_id}")
             var client:partitionClient = null
@@ -97,7 +99,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                 val worker_i = worker_map(work_id)
                 client = new partitionClient(id, worker_i.ip, worker_i.port, workerNum, key)
                 client.requestShuffle
-                partition_list.appended(client.partition)
+                partition_list.appended(TypeConverter.string2block(client.partition))
             }
             finally{
                 if(client != null) {

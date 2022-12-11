@@ -97,13 +97,38 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
         }
 
         override def terminate(request: TerminateRequest): Future[TerminateResponse] = {
-            logger.info(s"Worekr ${request.id} is terminated")
-            if (request.done){
-                Future.successful(TerminateResponse())
+            logger.info(s"Worker ${request.id} is terminated")
+            if (request.done) {
+                worker_map.synchronized{
+                    worker_map(request.id).state = 4
+                    if (check_All(3, 4)) {
+                        logger.info("All workers' job is done")
+                        val keyIPList: List[(String, String)] = worker_map.map { case (worker_id, worker_info) => (worker_info.ip, worker_info.key) }.toList
+                        val keyList: List[String] = keyIPList map (
+                          e => e._2
+                        )
+                        val sortedKeyList = keyList.sorted
+
+                        sortedKeyList map (
+                          e => keyIPList.find(keyIP => keyIP._2 == e) match {
+                              case None => print("not work!!")
+                              case Some (keyIP) => print(keyIP._1 + " ")
+                          }
+                        )
+                    }
+                }
+            } else{
+                state = 99
+                worker_map.synchronized{
+                    val worker = worker_map.remove(request.id)
+                    val checkAllTerminate = worker_map.forall{case(_, worker) => worker.state == 4}
+                    if(state != 0 && checkAllTerminate) {
+                        logger.info("All workers terminated")
+                        stop
+                    }
+                }
             }
-            else{
-                Future.successful(TerminateResponse())
-            }
+            Future.successful(TerminateResponse())
         }
         override def sort(request: SortRequest): Future[SortResponse] = {
             assert (worker_map(request.id).state == 1 || worker_map(request.id).state == 2)

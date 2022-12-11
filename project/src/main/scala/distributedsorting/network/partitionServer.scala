@@ -13,7 +13,7 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
     val logger: Logger = Logger.getLogger(classOf[partitionServer].getName)
 
     var server: Server = null
-    var partition_list:List[String] = null
+    var partition_list:List[List[String]] = null
     val request_map:Map[Int, String] = Map()
     var state = 0
     var workerNum = -1
@@ -47,7 +47,7 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
                     if(request_map.size == workerNum -1){
                         state = 1;
                     }
-                    Future.successful(new ShuffleResponse(1,id,partition_list(request.id - 1)))
+                    Future.successful(new ShuffleResponse(1,id,TypeConverter.block2string(partition_list(request.id - 1))))
                 }
                 else {
                     Future.failed(throw InvalidStateException)
