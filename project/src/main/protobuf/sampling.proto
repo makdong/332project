@@ -7,15 +7,25 @@ If every worker is ready, then continue the program.
 If it is not, we need timeout.
  */
 service Sampling {
-  rpc Sampling (SamplingRequest) returns (SamplingRespond) {}
+  rpc sample (SamplingRequest) returns (SamplingResponse) {}
 }
 
 message SamplingRequest {
-  bool isConnected = 1;
+  int32 id = 1;
+  string key = 2;
 }
 
-message SamplingRespond {
-  string keyMedian = 1;
+message workerSamplingInfo{
+  int32 id = 1;
+  string ip = 2;
+  int32 port = 3;
+  string key = 4;
+}
+
+message SamplingResponse {
+  int32 state = 1;
+  int32 workerNum = 2;
+  repeated workerSamplingInfo workerInfo = 3;
 }
 
 

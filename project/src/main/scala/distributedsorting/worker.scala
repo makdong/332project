@@ -1,3 +1,4 @@
+/*
 package distributedsorting
 
 import java.io._
@@ -89,13 +90,26 @@ object worker {
     }
 
     def main() = {
+        val masterIp:String = ???
+        val masterPort:Int = ???
+        val workerIp:String = InetAddress.getLocalHost.getHostAddress
+        val workerPort:Int = ???
 
-        //val server = new worker(ExecutionContext.global)
-        //server.start()
-        //server.blockUntilShutdown()
+        val client = new ConnectionClient(masterIp, masterPort, workerIp, workerPort)
+
+        try{
+            client.connectRequest
+
+
+            client.shutdown(true)
+        }catch{
+
+        }fianlly{
+            client.shutdown(false)
+        }
     }
 }
-
+*/
 
 /*
 class worker(executionContext: ExecutionContext) { self =>

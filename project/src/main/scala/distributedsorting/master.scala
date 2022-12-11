@@ -1,3 +1,4 @@
+/*
 package distributedsorting
 
 import org.apache.log4j.Logger
@@ -38,7 +39,8 @@ object master extends App {
       server.stop
     }
   }
-  */
+}
+*/
   /*
   def isIPValid(isPort: Boolean, ips: Array[String]): Boolean = {
     try {
@@ -163,7 +165,7 @@ object master extends App {
     */
   }
 }
-
+*/
 
 /*
 class master private(private val channel: ManagedChannel, private val blockingStub: CheckWorkersRunningBlockingStub) {
