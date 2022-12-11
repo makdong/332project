@@ -114,6 +114,7 @@ object worker {
             )
 
             client.partition_to_send = blockListListForShuffle
+
             client.shuffling
 
             block4Merge = client.partition_list

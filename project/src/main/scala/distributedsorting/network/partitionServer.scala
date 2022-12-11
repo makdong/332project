@@ -14,7 +14,7 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
     val logger: Logger = Logger.getLogger(classOf[partitionServer].getName)
 
     var server: Server = null
-    var partition_list:List[List[String]] = null
+    var partition_list:List[List[String]] = List()
     val request_map:Map[Int, String] = Map()
     var state = 0
     var workerNum = -1
