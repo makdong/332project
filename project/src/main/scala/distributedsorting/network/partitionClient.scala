@@ -11,7 +11,7 @@ import io.grpc.{ManagedChannelBuilder, Status}
 class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, key:String) {
     val logger: Logger = Logger.getLogger(classOf[partitionClient].getName)
 
-    val channel = ManagedChannelBuilder.forAddress(host_ip, host_port).usePlaintext.build
+    val channel = ManagedChannelBuilder.forAddress(host_ip, host_port+10).usePlaintext.build
     val blockingStub = ShuffleGrpc.blockingStub(channel)
     val asyncStub = ShuffleGrpc.stub(channel)
 

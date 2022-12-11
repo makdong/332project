@@ -46,7 +46,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         logger.info(s"${workerIp}:${workerPort}")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
-        partition_Server = new partitionServer(ExecutionContext.global, workerPort, id)
+        partition_Server = new partitionServer(ExecutionContext.global, workerPort+10, id)
     }
 
     def sortRequest():Unit = {
@@ -85,7 +85,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                 logger.info("Exception Occurred")
             }
             case _ => {
-                Thread.sleep(5)
+                Thread.sleep(5000)
                 sampleRequest
             }
         }
