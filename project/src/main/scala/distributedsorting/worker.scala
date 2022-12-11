@@ -114,10 +114,12 @@ object worker {
             )
 
             client.partition_to_send = blockListListForShuffle
-
+            client.permissionRequest
             client.shuffling
 
             block4Merge = client.partition_list
+
+            client.returnRequest
 
             client.shutdown(true)
         }catch{

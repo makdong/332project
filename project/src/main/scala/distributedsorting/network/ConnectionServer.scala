@@ -21,6 +21,7 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
     var server:Server = null
     val worker_map : Map[Int, workerInfo] = Map()
     var state = 0
+    var current_shuffle_server = 1
 
     def start():Unit = {
         server = ServerBuilder.forPort(port).addService(ConnectionGrpc.bindService(new ConnectionImpl, executionContext)).build.start
@@ -155,6 +156,14 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                     Future.successful(new SortResponse(0))
                 }
             }
+        }
+
+        override def shufflingPermission(request: PermissionRequest): Future[PermissionResponse] = {
+            Future.successful(new PermissionResponse(current_shuffle_server))
+        }
+        override def permissionReturn(request: shufflingRequest): Future[shufflingResponse] = {
+            current_shuffle_server = request.id + 1
+            Future.successful(new shufflingResponse())
         }
     }
 }
