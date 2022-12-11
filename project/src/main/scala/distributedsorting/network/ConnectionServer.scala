@@ -102,8 +102,9 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
             logger.info(s"Worker ${request.id} is terminated")
             if (request.done) {
                 worker_map.synchronized{
-                    worker_map(request.id).state = 4
-                    if (check_All(3, 4)) {
+                    worker_map(request.id).state = 5
+                    if (check_All(4, 5)) {
+                        state = 5
                         logger.info("All workers' job is done")
                         val keyIPList: List[(String, String)] = worker_map.map { case (worker_id, worker_info) => (worker_info.ip, worker_info.key) }.toList
                         val keyList: List[String] = keyIPList map (
@@ -164,6 +165,32 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
         override def permissionReturn(request: shufflingRequest): Future[shufflingResponse] = {
             current_shuffle_server = request.id + 1
             Future.successful(new shufflingResponse())
+        }
+
+        override def wait(request: waitRequest): Future[waitResponse] = {
+            assert(worker_map(request.id).state == 3 || worker_map(request.id).state == 4)
+            if (worker_map(request.id).state == 3) {
+                worker_map.synchronized {
+                    worker_map(request.id).state = 4
+                }
+            }
+
+            if (check_All(3, 4)) {
+                state = 4
+                logger.info("All Clients finished sorting")
+            }
+
+            state match {
+                case 4 => {
+                    Future.successful(new waitResponse(1))
+                }
+                case 99 => {
+                    Future.failed(throw InvalidStateException)
+                }
+                case _ => {
+                    Future.successful(new waitResponse(0))
+                }
+            }
         }
     }
 }

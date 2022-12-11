@@ -120,6 +120,7 @@ object worker {
             block4Merge = client.partition_list
 
             client.returnRequest
+            client.waitRequest
 
             workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(true)

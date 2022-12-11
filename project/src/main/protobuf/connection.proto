@@ -65,6 +65,12 @@ message shufflingRequest{
 message shufflingResponse{
 
 }
+message waitRequest {
+  int32 id = 1;
+}
+message waitResponse {
+  int32 state = 1;
+}
 
 service Connection{
   rpc connect(ConnectionRequest) returns (ConnectionResponse) {}
@@ -73,5 +79,6 @@ service Connection{
   rpc sort(SortRequest) returns (SortResponse) {}
   rpc shufflingPermission(PermissionRequest) returns (PermissionResponse) {}
   rpc permissionReturn(shufflingRequest) returns (shufflingResponse) {}
+  rpc wait(waitRequest) returns (waitResponse) {}
 }
 

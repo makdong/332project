@@ -107,6 +107,23 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         val response = blockingStub.permissionReturn(new shufflingRequest(id))
     }
 
+    def waitRequest(): Unit = {
+        logger.info("Client has finished shuffling")
+        val response = blockingStub.wait(new waitRequest(id))
+        response.state match {
+            case 1 => {
+                logger.info("All Clients have finished shuffling")
+            }
+            case 2 => {
+                logger.info("Exception Occurred")
+            }
+            case _ => {
+                Thread.sleep(5000)
+                waitRequest
+            }
+        }
+    }
+
     def shuffling():Unit={
         logger.info("Client starts Shuffling")
         for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
