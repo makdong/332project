@@ -121,11 +121,11 @@ object worker {
 
             client.returnRequest
 
+            workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(true)
         }catch{
             case e: Exception => println(e)
         }finally{
-            workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(false)
         }
     }
