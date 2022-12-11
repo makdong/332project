@@ -121,7 +121,7 @@ object worker {
         }catch{
             case e: Exception => println(e)
         }finally{
-            workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
+            workerUtil.merge(outputDirectorys.head, block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(false)
         }
     }

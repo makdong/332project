@@ -19,7 +19,7 @@ object TypeConverter {
     }
 
     def string2block(string: String): List[String] = {
-        val blockSize = 32000
+        val blockSize = 320000
         def lines = string.split("\n").toList.map(line => line.concat("\n"))
         def groupedLines = lines.grouped(blockSize).toList
         groupedLines.map(_.mkString)
