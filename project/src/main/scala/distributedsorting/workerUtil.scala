@@ -94,7 +94,7 @@ object workerUtil {
                 mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail), count + 1)
             }
         }
-        mergeRec(listOfBlock, 0)
+        mergeRec(listOfBlock, 1)
         writer.close()
     }
 }
