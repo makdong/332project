@@ -83,7 +83,6 @@ object workerUtil {
             val max = findMax(listOfHead)
 
             if (count % 320000 == 0) {
-                println("count", count)
                 writer.close()
                 filePath = outputDir + "/merged" + (count / 320000).toInt.toString + ".txt"
                 writer = new FileWriter(new File(filePath))
