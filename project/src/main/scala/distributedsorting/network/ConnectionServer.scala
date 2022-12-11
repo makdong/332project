@@ -59,6 +59,7 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                 worker_map.synchronized{
                     if(worker_map.size < workerNum) {
                         worker_map(worker_map.size + 1) = new workerInfo(worker_map.size + 1,request.ip, request.port)
+                        worker_map(worker_map.size).state = 1
                         if(worker_map.size == workerNum){
                             state = 1
                         }
