@@ -67,12 +67,18 @@ object workerUtil {
 
     def merge(outputDir: String, listOfBlock: List[List[TypeConverter.Entry]]) = {
         val endValue = TypeConverter.Entry("ENDVALUE!!  00000000000000000000000000000000  0000000000000000000000000000000000000000000000000000\n")
-        def findMax(listOfBlock: List[TypeConverter.Entry]) = {
+        def findMax(listOfBlock: List[TypeConverter.Entry]): (Int, TypeConverter.Entry) = {
             def line = sort(listOfBlock).head
             def idx = listOfBlock.lastIndexOf(line)
-            if (line == endValue) findMax(sort(listOfBlock.tail))
-            else if (listOfBlock == Nil) (idx, endValue)
-            else (idx, line)
+            if (line == endValue) {
+                findMax(sort(listOfBlock.tail))
+            }
+            else if (listOfBlock == Nil) {
+                (idx, endValue)
+            }
+            else {
+                (idx, line)
+            }
         }
 
         var filePath = outputDir + "/merged0.txt"
