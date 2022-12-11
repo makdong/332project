@@ -43,6 +43,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     def connectRequest():Unit = {
         logger.info("Client is Connecting to Master")
         logger.info(s"${masterIp}:${masterPort}")
+        logger.info(s"${workerIp}:${workerPort}")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
         partition_Server = new partitionServer(ExecutionContext.global, workerPort, id)
