@@ -122,6 +122,7 @@ object worker {
             client.returnRequest
 
             workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
+//            block4Merge.map(_.map(TypeConverter.Entry(_).))
             client.shutdown(true)
         }catch{
             case e: Exception => println(e)
