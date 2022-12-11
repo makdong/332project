@@ -79,7 +79,6 @@ object workerUtil {
             val max = findMax(listOfHead)
 
             if (max._2 != endValue) {
-                print(max._2.line)
                 writer.write(max._2.line)
                 mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail))
             }
