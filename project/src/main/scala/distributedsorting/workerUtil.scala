@@ -26,6 +26,7 @@ object workerUtil {
         val sortedKeyList = keyList.sorted
 
         sortedKeyList(idx)
+        keyList(0)
     }
 
     def key2String(keys : List[String]) : String = {
