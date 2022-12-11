@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import io.grpc.{ManagedChannelBuilder, Status}
 
-class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int) {
+class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, key:String) {
     val logger: Logger = Logger.getLogger(classOf[partitionClient].getName)
 
     val channel = ManagedChannelBuilder.forAddress(host_ip, host_port).usePlaintext.build
@@ -22,15 +22,15 @@ class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int) 
     }
 
     def requestShuffle():Unit = {
-        logger.info("Asking Partiton to other workers")
-        val response = asyncStub.connect(new ShuffleRequest(workerIp, workerPort))
+        logger.info("Asking Partition to other workers")
+        val response = blockingStub.shuffle(new ShuffleRequest(id, key))
         partition = response.partition
-        reponse.state match {
+        response.state match {
             case 1 => {
                 logger.info(s"Done getting partition from worker ${response.id}}")
             }
             case _ => {
-                logger.info("Exception Occured")
+                logger.info("Exception Occurred")
             }
         }
     }

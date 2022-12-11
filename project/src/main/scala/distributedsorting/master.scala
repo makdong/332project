@@ -1,18 +1,16 @@
-package distributedsorting
+package src.main.scala.distributedsorting
 
 import org.apache.log4j.Logger
 import io.grpc._
 import distributedsorting.connection._
-import distributedsorting.distribute._
 import distributedsorting.shuffle._
-import distributedsorting.merge._
 import java.net._
 
 import scala.concurrent.{ExecutionContext, Future}
 import java.util.concurrent.TimeUnit
 
 object Invalid extends Exception {}
-object master extends App {
+object master {
   type Block = String
   type Key = String
   def main(args: Array[String]): Unit = {

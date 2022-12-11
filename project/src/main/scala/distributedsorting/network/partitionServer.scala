@@ -7,18 +7,20 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.mutable.Map
 
 import distributedsorting.shuffle._
+import io.grpc._
 
 class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { self =>
     val logger: Logger = Logger.getLogger(classOf[partitionServer].getName)
 
-    val server: Server = null
-    var partition_list:String = null
-    val request_map = Map[int, String]{}
+    var server: Server = null
+    var partition_list:List[String] = null
+    val request_map:Map[Int, String] = Map()
     var state = 0
+    var workerNum = -1
     
 
     def start():Unit = {
-        server = ServerBuilder.forPort(port).addService(ConnectionGrpc.bindService(new ConnectionImpl, executionContext)).build.start
+        server = ServerBuilder.forPort(port).addService(ShuffleGrpc.bindService(new ShuffleImpl, executionContext)).build.start
         logger.info("Partition Server started, listening on " + port)
         sys.addShutdownHook {
             logger.info("Shutting down Partition server since JVM is shutting down")
@@ -38,17 +40,17 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
         }
     }
     class ShuffleImpl() extends ShuffleGrpc.Shuffle {
-        override def shuffle(request: ShuffleRequest):Future[ShuffleResponse] {
+        override def shuffle(request: ShuffleRequest):Future[ShuffleResponse] = {
             request_map.synchronized{
                 if(request_map.size < workerNum-1) {
-                    request_map[request.id] = request.partition
+                    request_map(request.id) = request.keyMedians
                     if(request_map.size == workerNum -1){
                         state = 1;
                     }
-                    Future.successful(new shuffleResponse(1,id,partition_list(request.id - 1)))
+                    Future.successful(new ShuffleResponse(1,id,partition_list(request.id - 1)))
                 }
                 else {
-                    Future.failed()
+                    Future.failed(throw InvalidStateException)
                 }
             }
         }

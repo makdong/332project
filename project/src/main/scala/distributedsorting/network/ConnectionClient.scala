@@ -9,10 +9,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 import scala.concurrent.{Promise}
 
-import io.grpc.{ManagedChannelBuilder, Status}
+import io.grpc.{ManagedChannelBuilder, Status, Server}
 import distributedsorting.connection._
-import distributedsorting.sampling._
-import network.workerInfo.{workerInfo}
+import src.main.scala.distributedsorting.workerInfo
 
 class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerPort:Int) {
     val logger: Logger = Logger.getLogger(classOf[ConnectionClient].getName)
@@ -25,8 +24,8 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     var id:Int = -1
     var workerNum:Int = -1
     var key:String = null
-    val worker_map = Map[Int, workerInfo]
-    val partition_Server = null
+    val worker_map : Map[Int, workerInfo] = Map()
+    var partition_Server:partitionServer = null
     val partition_list = List()
 
     def shutdown(success:Boolean): Unit = {
@@ -44,19 +43,18 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         logger.info("Client is Connecting to Master")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
-        partition_Server = new partition_Server(ExecutionContext.global, workerPort, id)
+        partition_Server = new partitionServer(ExecutionContext.global, workerPort, id)
     }
 
-    @tailrec
     def sortRequest():Unit = {
         logger.info("Client has finished sorting")
         val response = blockingStub.sort(new SortRequest(id))
-        response.match{
+        response.state match {
             case 1=>{
                 logger.info("All Clients have finished sorting")
             }
             case 2 => {
-                logger.info("Exception Occured")
+                logger.info("Exception Occurred")
             }
             case _ => {
                 Thread.sleep(5000)
@@ -65,19 +63,19 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         }
     }
 
-    @tailrec
     def sampleRequest():Unit = {
         logger.info("Client is requesting every key")
         val response = blockingStub.sample(new SamplingRequest(id, key))
         response.state match {
             case 1 => {
                 workerNum = response.workerNum
-                for(worker <- response.workerInfo){
-                    worker_info = new workerInfo(w.id, w.ip, w.port)
+                for(w <- response.workerInfo){
+                    val worker_info = new workerInfo(w.id, w.ip, w.port)
                     worker_info.state = w.state
                     worker_info.key = w.key
-                    worker_map[worker.id] = worker_info
+                    worker_map(w.id) = worker_info
                 }
+                partition_Server.workerNum = workerNum
                 partition_Server.start()
             }
             case 2 => {
@@ -94,10 +92,10 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         logger.info("Client starts Shuffling")
         for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
             logger.info(s"Client requesting partition from worker ${work_id}")
-            var client = null
+            var client:partitionClient = null
             try{
-                val worker_i = worker_map[work_id]
-                client = new partitionClient(worker_i.ip, worker_i.port, id)
+                val worker_i = worker_map(work_id)
+                client = new partitionClient(id, worker_i.ip, worker_i.port, workerNum, key)
                 client.requestShuffle
                 partition_list.appended(client.partition)
             }
