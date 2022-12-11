@@ -115,6 +115,7 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                               case Some (keyIP) => print(keyIP._1 + " ")
                           }
                         )
+                        stop
                     }
                 }
             } else{
