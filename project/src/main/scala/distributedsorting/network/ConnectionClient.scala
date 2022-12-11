@@ -26,7 +26,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     var key:String = null
     val worker_map : Map[Int, workerInfo] = Map()
     var partition_Server:partitionServer = null
-    val partition_list = List[List[String]]()
+    var partition_list = List[List[String]]()
     var partition_to_send:List[List[String]] = null
 
     def shutdown(success:Boolean): Unit = {
@@ -104,7 +104,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                 logger.info("here11111")
                 client.requestShuffle
                 logger.info("here22222")
-                partition_list.appended(TypeConverter.string2block(client.partition))
+                partition_list = partition_list.appended(TypeConverter.string2block(client.partition))
             }
             finally{
                 if(client != null) {
