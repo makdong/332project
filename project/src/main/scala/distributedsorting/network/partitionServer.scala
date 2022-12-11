@@ -52,8 +52,8 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
                     }
                     logger.info("Test1")
                     val data:String = TypeConverter.block2string(partition_list(request.id - 1))
-                    logger.info(s"${data.size}")
-                    //logger.info(s"${data}")
+                    logger.info(s"Size = ${data.size}")
+                    logger.info(s"${data}")
                     Future.successful(new ShuffleResponse(1,id, data))
                 }
                 else {
