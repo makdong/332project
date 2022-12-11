@@ -10,7 +10,7 @@ object worker {
     def main(args: Array[String]): Unit = {
         val masterIp = args(0).split(":")(0)
         val masterPort = args(0).split(":")(1).toInt
-        def parsing(option: String, optionMap: (List[String], List[String]), argList: List[String]): (List[String], List[String]) = {
+        def parsing(option: String, optionMap: (List[String], List[String], List[String]), argList: List[String]): (List[String], List[String], List[String]) = {
             if (argList.size == 0) {
                 optionMap
             } else {
@@ -21,13 +21,19 @@ object worker {
                     case "-O" => {
                         parsing("-O", optionMap, argList.tail)
                     }
+                    case "-P" => {
+                        parsing("-P", optionMap, argList.tail)
+                    }
                     case x: String => {
                         option match {
                             case "-I" => {
-                                parsing(option, (x :: optionMap._1, optionMap._2), argList.tail)
+                                parsing(option, (x :: optionMap._1, optionMap._2, optionMap._3), argList.tail)
                             }
                             case "-O" => {
-                                parsing(option, (optionMap._1, x :: optionMap._2), argList.tail)
+                                parsing(option, (optionMap._1, x :: optionMap._2, optionMap._3), argList.tail)
+                            }
+                            case "-P" => {
+                                parsing(option, (optionMap._1, optionMap._2, x :: optionMap._3), argList.tail)
                             }
                             case _ => {
                                 print("check option")
@@ -39,12 +45,19 @@ object worker {
             }
         }
 
-        val optionMap = parsing("", (List(), List()), args.toList.tail)
+        val optionMap = parsing("", (List(), List(), List()), args.toList.tail)
         val inputDirectorys: List[String] = optionMap._1
         val outputDirectorys = optionMap._2
 
         val workerIp:String = InetAddress.getLocalHost.getHostAddress
-        val workerPort:Int = 8888
+        val workerPort:Int = {
+            if(optionMap._3.isEmpty){
+                8888
+            }
+            else {
+                optionMap._3.head.toInt
+            }
+        }
 
         val client = new ConnectionClient(masterIp, masterPort, workerIp, workerPort)
         var keyOrder : List[Int] = null

@@ -21,7 +21,7 @@ object master {
         args(1).toInt
       }
       else {
-        1343
+        8023
       }
     }
     val server = new ConnectionServer(ExecutionContext.global, port, workerNum)
