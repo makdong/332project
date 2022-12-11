@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 import scala.annotation.tailrec
 import scala.collection.mutable.Map
+import scala.concurrent.{ExecutionContext, Future}
 
 import scala.concurrent.{Promise}
 
@@ -25,6 +26,8 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     var workerNum:Int = -1
     var key:String = null
     val worker_map = Map[Int, workerInfo]
+    val partition_Server = null
+    val partition_list = List()
 
     def shutdown(success:Boolean): Unit = {
         logger.info("Client is Shutting Down")
@@ -41,6 +44,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         logger.info("Client is Connecting to Master")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
+        partition_Server = new partition_Server(ExecutionContext.global, workerPort, id)
     }
 
     @tailrec
@@ -74,6 +78,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                     worker_info.key = w.key
                     worker_map[worker.id] = worker_info
                 }
+                partition_Server.start()
             }
             case 2 => {
                 logger.info("Exception Occured")
@@ -85,8 +90,23 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         }
     }
 
-    def shuffle():Unit={
+    def shuffling():Unit={
         logger.info("Client starts Shuffling")
+        for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
+            logger.info(s"Client requesting partition from worker ${work_id}")
+            var client = null
+            try{
+                val worker_i = worker_map[work_id]
+                client = new partitionClient(worker_i.ip, worker_i.port, id)
+                client.requestShuffle
+                partition_list.appended(client.partition)
+            }
+            finally{
+                if(client != null) {
+                    client.shutdown
+                }
+            }
+        }
     }
 
 }

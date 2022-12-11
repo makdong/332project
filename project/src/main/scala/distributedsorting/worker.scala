@@ -55,6 +55,8 @@ object worker extends App {
 
             client.sampleRequest
 
+            client.shuffling
+
             client.shutdown(true)
         }catch{
 

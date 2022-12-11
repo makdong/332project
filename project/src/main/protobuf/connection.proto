@@ -32,8 +32,28 @@ message TerminateResponse {
 
 }
 
+message SamplingRequest {
+  int32 id = 1;
+  string key = 2;
+}
+
+message workerSamplingInfo{
+  int32 id = 1;
+  string ip = 2;
+  int32 port = 3;
+  int32 state = 4;
+  string key = 5;
+}
+
+message SamplingResponse {
+  int32 state = 1;
+  int32 workerNum = 2;
+  repeated workerSamplingInfo workerInfo = 3;
+}
+
 service Connection{
   rpc connect(ConnectionRequest) returns (ConnectionResponse) {}
+  rpc sample (SamplingRequest) returns (SamplingResponse) {}
   rpc terminate(TerminateRequest) returns (TerminateResponse) {}
   rpc sort(SortRequest) returns (SortResponse) {}
 }

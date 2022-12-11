@@ -71,6 +71,30 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
             }
 
         }
+        override def sample(request: SamplingRequest): Future[SamplingResponse] = {
+            assert (worker_map(request.id).state == 2 || worker_map(request.id).state == 3)
+            if(worker_map(request.id.state == 2)) {
+                worker_map.synchronized{
+                    worker_map(request.id).state = 3
+                    worker_map[request.id].key = request.key
+                }
+            }
+            if(check_All(2,3)){
+                state = 3
+                logger.info("All Clients finished sending key")
+            }
+            state match {
+                case 3 => {
+                    Future.successful(new SortResponse(1, workerNum, (worker_map.map{case(id, work_i) => workerSamplingInfo(id = work_i.id, ip = work_i.ip, port = work_i.port, state = work_i.state, key = work_i.key)}).toSeq))
+                }
+                case 99 => {
+                    Future.failed()
+                }
+                case _ => {
+                    Future.succesful(new SortResponse(0))
+                }
+            }
+        }
 
         override def terminate(request: TerminateRequest): Future[TerminateResponse] = {
             logger.info(s"Worekr ${request.id} is terminated")
@@ -91,7 +115,7 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                 logger.info("All Clients finished sorting")
             }
 
-            match state {
+            state match {
                 case 2 => {
                     Future.successful(new SortResponse(1))
                 }
