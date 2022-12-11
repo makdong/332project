@@ -51,6 +51,9 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
                         state = 1;
                     }
                     logger.info("Test1")
+                    logger.info(s"request id is : ${request.id}")
+                    logger.info(s"request id - 1 is : ${request.id - 1}")
+                    logger.info(s"partition list size is : ${partition_list.size}")
                     val data:String = TypeConverter.block2string(partition_list(request.id - 1))
                     logger.info(s"Size = ${data.size}")
                     logger.info(s"${data}")
