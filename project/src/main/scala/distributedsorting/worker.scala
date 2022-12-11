@@ -122,7 +122,7 @@ object worker {
             client.returnRequest
             client.waitRequest
 
-            workerUtil.merge(block4Merge.map(_.map(TypeConverter.Entry(_))))
+            workerUtil.merge(outputDirectorys.head, block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(true)
         }catch{
             case e: Exception => println(e)
