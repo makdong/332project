@@ -27,7 +27,12 @@ class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, 
         logger.info("Asking Partition to other workers")
         println(s"${host_ip}:${host_port}")
         println(s"${InetAddress.getLocalHost.getHostAddress}")
-        val response = blockingStub.shuffle(new ShuffleRequest(id, key))
+        try {
+            val response = blockingStub.shuffle(new ShuffleRequest(id, key))
+        }
+        catch{
+            case e: Exception => println(e)
+        }
         logger.info("Getting Response Done")
         partition = response.partition
         response.state match {
