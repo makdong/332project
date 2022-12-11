@@ -26,7 +26,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     var key:String = null
     val worker_map : Map[Int, workerInfo] = Map()
     var partition_Server:partitionServer = null
-    val partition_list = List[List[String]]()
+    var partition_list = List[List[String]]()
     var partition_to_send:List[List[String]] = null
 
     def shutdown(success:Boolean): Unit = {
@@ -45,7 +45,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         logger.info(s"${masterIp}:${masterPort}")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
-        partition_Server = new partitionServer(ExecutionContext.global, workerPort, id)
+        partition_Server = new partitionServer(ExecutionContext.global, workerPort+58, id)
     }
 
     def sortRequest():Unit = {
@@ -84,23 +84,57 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                 logger.info("Exception Occurred")
             }
             case _ => {
-                Thread.sleep(5)
+                Thread.sleep(5000)
                 sampleRequest
+            }
+        }
+    }
+    def permissionRequest():Unit = {
+        logger.info("Client is asking permission")
+        partition_Server.partition_list = partition_to_send
+        val response = blockingStub.shufflingPermission(new PermissionRequest(id))
+        if(response.permission == id){
+            logger.info("Client obtain permission")
+        }
+        else{
+            Thread.sleep(5000)
+            permissionRequest
+        }
+    }
+
+    def returnRequest():Unit = {
+        logger.info("Client is returning permission")
+        val response = blockingStub.permissionReturn(new shufflingRequest(id))
+    }
+
+    def waitRequest(): Unit = {
+        logger.info("Client has finished shuffling")
+        val response = blockingStub.wait(new waitRequest(id))
+        response.state match {
+            case 1 => {
+                logger.info("All Clients have finished shuffling")
+            }
+            case 2 => {
+                logger.info("Exception Occurred")
+            }
+            case _ => {
+                Thread.sleep(5000)
+                waitRequest
             }
         }
     }
 
     def shuffling():Unit={
         logger.info("Client starts Shuffling")
-        partition_Server.partition_list = partition_to_send
         for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
             logger.info(s"Client requesting partition from worker ${work_id}")
             var client:partitionClient = null
             try{
                 val worker_i = worker_map(work_id)
-                client = new partitionClient(id, worker_i.ip, worker_i.port, workerNum, key)
+                logger.info(s"${worker_i.port + 58}")
+                client = new partitionClient(id, worker_i.ip, worker_i.port+58, workerNum, key)
                 client.requestShuffle
-                partition_list.appended(TypeConverter.string2block(client.partition))
+                partition_list = partition_list.appended(TypeConverter.string2block(client.partition))
             }
             finally{
                 if(client != null) {

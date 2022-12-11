@@ -80,11 +80,10 @@ object worker {
             client.key = medianKey
 
             client.sampleRequest
-
             val keyMap:Map[Int, workerInfo] = client.worker_map
-            val keyList: List[String] = List()
+            var keyList: List[String] = List()
             for(worker_id <- (1 to keyMap.size)){
-                keyList.appended(keyMap(worker_id).key)
+                keyList = keyList.appended(keyMap(worker_id).key)
             }
 
             keyOrder = workerUtil.getWorkerOrderUsingKey(keyList)
@@ -112,16 +111,22 @@ object worker {
                   workerUtil.entryListList2blockList(sortedBlockList.map(TypeConverter.block2EntryList(_)), minRange, maxRange)
               }
             )
+
             client.partition_to_send = blockListListForShuffle
+            client.permissionRequest
+            Thread.sleep(5000)
             client.shuffling
 
             block4Merge = client.partition_list
 
+            client.returnRequest
+            client.waitRequest
+
+            workerUtil.merge(outputDirectorys.head, block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(true)
         }catch{
             case e: Exception => println(e)
         }finally{
-            workerUtil.merge(outputDirectorys.head, block4Merge.map(_.map(TypeConverter.Entry(_))))
             client.shutdown(false)
         }
     }
