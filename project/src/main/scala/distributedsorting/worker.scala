@@ -92,7 +92,7 @@ object worker {
         val masterIp:String = ???
         val masterPort:Int = ???
         val workerIp:String = InetAddress.getLocalHost.getHostAddress
-        val workerPort:Int = ???
+        val workerPort:Int = 8888
 
         val client = new ConnectionClient(masterIp, masterPort, workerIp, workerPort)
 
@@ -104,6 +104,8 @@ object worker {
             client.sortRequest
 
             client.sample
+
+            client.key = ???
 
             client.sampleRequest
 

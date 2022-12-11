@@ -1,4 +1,3 @@
-/*
 package distributedsorting
 
 import org.apache.log4j.Logger
@@ -40,7 +39,7 @@ object master extends App {
     }
   }
 }
-*/
+
   /*
   def isIPValid(isPort: Boolean, ips: Array[String]): Boolean = {
     try {

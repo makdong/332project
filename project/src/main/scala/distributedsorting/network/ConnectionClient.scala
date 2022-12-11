@@ -61,10 +61,6 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         }
     }
 
-    def sort():Unit ={
-
-    }
-
     @tailrec
     def sampleRequest():Unit = {
         logger.info("Client is requesting every key")
@@ -88,15 +84,9 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
             }
         }
     }
-    def sample():Unit={
-
-    }
 
     def shuffle():Unit={
         logger.info("Client starts Shuffling")
     }
 
-    def merge():Unit={
-        logger.info("Client starts Merging")
-    }
 }

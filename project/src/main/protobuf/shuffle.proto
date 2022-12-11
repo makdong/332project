@@ -7,18 +7,21 @@ main give criteria to each worker that
 which data should go into which worker.
  */
 service Shuffle {
-  rpc Shuffle (ShuffleRequest) returns (ShuffleRespond) {}
+  rpc shuffle (ShuffleRequest) returns (ShuffleRespond) {}
 }
 
 message ShuffleRequest {
-  string keyMedians = 1;
+  int32 id = 1;
+  string keyMedians = 2;
 }
 
 /*
 query should contain the value of key & data and it's destination.
  */
-message ShuffleRespond {
-  string dataEntryDestination = 1;
+message ShuffleResponse {
+  int32 state = 1;
+  int32 id = 2;
+  string partition = 3;
 }
 
 
