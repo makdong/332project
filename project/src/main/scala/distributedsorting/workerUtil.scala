@@ -83,7 +83,7 @@ object workerUtil {
 
             if (count % 320000 == 0) {
                 writer.close()
-                filePath = outputDir + "/merged" + (count / 320000).toInt.toString + ".txt"
+                filePath = outputDir + "/merged" + (count / 320000 + 1).toInt.toString + ".txt"
                 writer = new FileWriter(new File(filePath))
             }
 
