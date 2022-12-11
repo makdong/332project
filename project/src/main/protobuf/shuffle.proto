@@ -7,7 +7,7 @@ main give criteria to each worker that
 which data should go into which worker.
  */
 service Shuffle {
-  rpc shuffle (ShuffleRequest) returns (ShuffleRespond) {}
+  rpc shuffle (ShuffleRequest) returns (ShuffleResponse) {}
 }
 
 message ShuffleRequest {
