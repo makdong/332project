@@ -51,7 +51,10 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
                         state = 1;
                     }
                     logger.info("Test1")
-                    Future.successful(new ShuffleResponse(1,id,TypeConverter.block2string(partition_list(request.id - 1))))
+                    val data:String = TypeConverter.block2string(partition_list(request.id - 1))
+                    logger.info(s"${data.size}")
+                    logger.info(s"${data}")
+                    Future.successful(new ShuffleResponse(1,id, data))
                 }
                 else {
                     Future.failed(throw InvalidStateException)
