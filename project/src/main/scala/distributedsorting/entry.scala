@@ -2,6 +2,7 @@ package src.main.scala.distributedsorting
 
 object TypeConverter {
     case class Entry(line: String) {
+        println(s"length is ${line.length}!!!fewajnbfhjlaebflhjewabfhlijbfehjliwafbehjlwafg")
         assert(line.length == 99)
         def key = line.substring(0, 10)
         def num = line.substring(12, 44)
