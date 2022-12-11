@@ -11,7 +11,7 @@ import io.grpc.{ManagedChannelBuilder, Status}
 class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, key:String) {
     val logger: Logger = Logger.getLogger(classOf[partitionClient].getName)
 
-    val channel = ManagedChannelBuilder.forAddress(host_ip, host_port+58).usePlaintext.build
+    val channel = ManagedChannelBuilder.forAddress(host_ip, host_port).usePlaintext.build
     val blockingStub = ShuffleGrpc.blockingStub(channel)
     val asyncStub = ShuffleGrpc.stub(channel)
 
@@ -23,7 +23,7 @@ class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, 
 
     def requestShuffle():Unit = {
         logger.info("Asking Partition to other workers")
-        println(s"${host_ip}:${host_port+58}")
+        println(s"${host_ip}:${host_port}")
         val response = blockingStub.shuffle(new ShuffleRequest(id, key))
         logger.info("Getting Response Done")
         partition = response.partition
