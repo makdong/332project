@@ -51,10 +51,34 @@ message SamplingResponse {
   repeated workerSamplingInfo workerInfo = 3;
 }
 
+message PermissionRequest{
+  int32 id = 1;
+}
+message PermissionResponse{
+  int32 permission = 1;
+}
+
+message shufflingRequest{
+  int32 id = 1;
+}
+
+message shufflingResponse{
+
+}
+message waitRequest {
+  int32 id = 1;
+}
+message waitResponse {
+  int32 state = 1;
+}
+
 service Connection{
   rpc connect(ConnectionRequest) returns (ConnectionResponse) {}
   rpc sample (SamplingRequest) returns (SamplingResponse) {}
   rpc terminate(TerminateRequest) returns (TerminateResponse) {}
   rpc sort(SortRequest) returns (SortResponse) {}
+  rpc shufflingPermission(PermissionRequest) returns (PermissionResponse) {}
+  rpc permissionReturn(shufflingRequest) returns (shufflingResponse) {}
+  rpc wait(waitRequest) returns (waitResponse) {}
 }
 

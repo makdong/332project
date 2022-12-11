@@ -3,6 +3,7 @@ package src.main.scala.distributedsorting
 import java.io._
 import distributedsorting.connection._
 import io.grpc._
+import scala.util._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -12,7 +13,8 @@ object workerUtil {
 
     def getMedianKeyFromListEntry(entryList: List[TypeConverter.Entry]) : String = {
         val length = entryList.length
-        val idx = length / 2
+        val rand = scala.util.Random
+        val idx = (rand.nextInt().abs % length) - 1
 
 
         entryList(idx).key
@@ -62,7 +64,7 @@ object workerUtil {
         sortedBlock
     }
 
-    def merge(listOfBlock: List[List[TypeConverter.Entry]]) = {
+    def merge(outputDir: String, listOfBlock: List[List[TypeConverter.Entry]]) = {
         val endValue = TypeConverter.Entry("ENDVALUE!!  00000000000000000000000000000000  0000000000000000000000000000000000000000000000000000\n")
         def findMax(listOfBlock: List[TypeConverter.Entry]) = {
             def line = sort(listOfBlock).head
@@ -70,21 +72,28 @@ object workerUtil {
             (idx, line)
         }
 
-        val writer = new FileWriter(new File("./merged.txt"))
-        def mergeRec(listOfBlock: List[List[TypeConverter.Entry]]) {
+        var filePath = outputDir + "/merged0.txt"
+        var writer = new FileWriter(new File(filePath))
+        def mergeRec(listOfBlock: List[List[TypeConverter.Entry]], count: Int) {
             val listOfHead: List[TypeConverter.Entry] = listOfBlock.map(block => {
                 if (block.nonEmpty) block.head
                 else endValue
             })
             val max = findMax(listOfHead)
 
+            if (count % 320000 == 0) {
+                writer.close()
+                filePath = outputDir + "/merged" + (count / 320000 + 1).toInt.toString + ".txt"
+                writer = new FileWriter(new File(filePath))
+            }
+
+
             if (max._2 != endValue) {
-                print(max._2.line)
                 writer.write(max._2.line)
-                mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail))
+                mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail), count + 1)
             }
         }
-        mergeRec(listOfBlock)
+        mergeRec(listOfBlock, 0)
         writer.close()
     }
 }
