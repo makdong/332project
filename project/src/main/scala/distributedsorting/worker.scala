@@ -80,7 +80,6 @@ object worker {
             client.key = medianKey
 
             client.sampleRequest
-            println("AAAAAA")
             val keyMap:Map[Int, workerInfo] = client.worker_map
             var keyList: List[String] = List()
             for(worker_id <- (1 to keyMap.size)){

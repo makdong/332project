@@ -109,7 +109,6 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
 
     def shuffling():Unit={
         logger.info("Client starts Shuffling")
-        logger.info(s"${partition_to_send.size}")
         for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
             logger.info(s"Client requesting partition from worker ${work_id}")
             var client:partitionClient = null
@@ -117,9 +116,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
                 val worker_i = worker_map(work_id)
                 logger.info(s"${worker_i.port + 58}")
                 client = new partitionClient(id, worker_i.ip, worker_i.port+58, workerNum, key)
-                logger.info("here11111")
                 client.requestShuffle
-                logger.info("here22222")
                 partition_list = partition_list.appended(TypeConverter.string2block(client.partition))
             }
             finally{
