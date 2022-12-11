@@ -1,12 +1,14 @@
 package src.main.scala.distributedsorting
 
 import distributedsorting.shuffle._
+
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 import java.io.File
 import scala.concurrent.duration._
-
 import io.grpc.{ManagedChannelBuilder, Status}
+
+import java.net.InetAddress
 
 class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, key:String) {
     val logger: Logger = Logger.getLogger(classOf[partitionClient].getName)
@@ -24,6 +26,7 @@ class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, 
     def requestShuffle():Unit = {
         logger.info("Asking Partition to other workers")
         println(s"${host_ip}:${host_port}")
+        println(s"${InetAddress.getLocalHost.getHostAddress}")
         val response = blockingStub.shuffle(new ShuffleRequest(id, key))
         logger.info("Getting Response Done")
         partition = response.partition
