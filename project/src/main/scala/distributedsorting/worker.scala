@@ -82,9 +82,9 @@ object worker {
             client.sampleRequest
 
             val keyMap:Map[Int, workerInfo] = client.worker_map
-            val keyList: List[String] = List()
+            var keyList: List[String] = List()
             for(worker_id <- (1 to keyMap.size)){
-                keyList.appended(keyMap(worker_id).key)
+                keyList = keyList.appended(keyMap(worker_id).key)
             }
 
             keyOrder = workerUtil.getWorkerOrderUsingKey(keyList)
