@@ -41,12 +41,14 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
     }
     class ShuffleImpl() extends ShuffleGrpc.Shuffle {
         override def shuffle(request: ShuffleRequest):Future[ShuffleResponse] = {
+            logger.info("Test0")
             request_map.synchronized{
                 if(request_map.size < workerNum-1) {
                     request_map(request.id) = request.keyMedians
                     if(request_map.size == workerNum -1){
                         state = 1;
                     }
+                    logger.info("Test1")
                     Future.successful(new ShuffleResponse(1,id,TypeConverter.block2string(partition_list(request.id - 1))))
                 }
                 else {
