@@ -4,7 +4,7 @@ object worker extends App {
     def main(args: Array[String]): Unit = {
         val masterIp = args(0).split(":")(0)
         val masterPort = args(0).split(":")(1).toInt
-        def parsing(option: String, optionMap: [List[String], List[String]], argList: List[String]): [List[String], List[String]] = {
+        def parsing(option: String, optionMap: (List[String], List[String]), argList: List[String]): (List[String], List[String]) = {
             if (argList.size == 0) {
                 optionMap
             } else {
@@ -33,7 +33,7 @@ object worker extends App {
             }
         }
 
-        val optionMap = parsing("", [List(), List()], args.tail)
+        val optionMap = parsing("", (List(), List()), args.tail)
         val inputDirectorys = optionMap._1
         val outputDirectorys = optionMap._2
 
