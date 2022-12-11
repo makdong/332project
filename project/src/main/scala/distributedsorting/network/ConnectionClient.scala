@@ -4,12 +4,14 @@ package src.main.scala.distributedsorting
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 import scala.annotation.tailrec
+import scala.collection.mutable.Map
 
 import scala.concurrent.{Promise}
 
 import io.grpc.{ManagedChannelBuilder, Status}
 import distributedsorting.connection._
 import distributedsorting.sampling._
+import network.workerInfo.{workerInfo}
 
 class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerPort:Int) {
     val logger: Logger = Logger.getLogger(classOf[ConnectionClient].getName)
@@ -22,6 +24,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     var id:Int = -1
     var workerNum:Int = -1
     var key:String = null
+    val worker_map = Map[Int, workerInfo]
 
     def shutdown(success:Boolean): Unit = {
         logger.info("Client is Shutting Down")
@@ -68,7 +71,13 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
         val response = blockingStub.sample(new SamplingRequest(id, key))
         response.state match {
             case 1 => {
-
+                workerNum = response.workerNum
+                for(worker <- response.workerInfo){
+                    worker_info = new workerInfo(w.id, w.ip, w.port)
+                    worker_info.state = w.state
+                    worker_info.key = w.key
+                    worker_map[worker.id] = worker_info
+                }
             }
             case 2 => {
                 logger.info("Exception Occured")

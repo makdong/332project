@@ -11,13 +11,15 @@ import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 import io.grpc.{Server, ServerBuilder, Status}
 import distributedsorting.connection._
+import distributedsorting.sampling._
+import network.workerInfo.{workerInfo}
 
 class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum: Int) { self=>
     val logger = Logger.getLogger(classOf[ConnectionServer].getName)
     //logger.setLevel(loggerLevel.level)
 
     var server:Server = null
-    val worker_map = Map[Int, WorkerInfo]{}
+    val worker_map = Map[Int, workerInfo]{}
     var state = 0
 
     def start():Unit = {
@@ -84,7 +86,22 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                 }
             }
 
-            if 
+            if (check_All(1,2)) {
+                state = 2
+                logger.info("All Clients finished sorting")
+            }
+
+            match state {
+                case 2 => {
+                    Future.successful(new SortResponse(1))
+                }
+                case 99 => {
+                    Future.failed()
+                }
+                case _ => {
+                    Future.successful(new SortResponse(0))
+                }
+            }
         }
     }
 }

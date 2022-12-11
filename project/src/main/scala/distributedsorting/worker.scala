@@ -1,4 +1,3 @@
-/*
 package distributedsorting
 
 import java.io._
@@ -100,6 +99,13 @@ object worker {
         try{
             client.connectRequest
 
+            client.sort
+
+            client.sortRequest
+
+            client.sample
+
+            client.sampleRequest
 
             client.shutdown(true)
         }catch{
@@ -109,7 +115,6 @@ object worker {
         }
     }
 }
-*/
 
 /*
 class worker(executionContext: ExecutionContext) { self =>
