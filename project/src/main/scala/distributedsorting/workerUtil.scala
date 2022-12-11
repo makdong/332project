@@ -14,7 +14,7 @@ object workerUtil {
     def getMedianKeyFromListEntry(entryList: List[TypeConverter.Entry]) : String = {
         val length = entryList.length
         val rand = scala.util.Random
-        val idx = (rand.nextInt() % length) - 1
+        val idx = (rand.nextInt().abs % length) - 1
 
 
         entryList(idx).key
