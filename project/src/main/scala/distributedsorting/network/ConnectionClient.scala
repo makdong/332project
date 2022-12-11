@@ -17,7 +17,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     val logger: Logger = Logger.getLogger(classOf[ConnectionClient].getName)
     //logger.setLevel(loggerLevel.level)
 
-    val channel = ManagedChannelBuilder.forAddress(masterIp, masterPort).usePlaintext.build
+    val channel = ManagedChannelBuilder.forAddress(masterIp, masterPort).usePlaintext().build()
     val blockingStub = ConnectionGrpc.blockingStub(channel)
     val asyncStub = ConnectionGrpc.stub(channel)
 
@@ -42,6 +42,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
 
     def connectRequest():Unit = {
         logger.info("Client is Connecting to Master")
+        logger.info(s"${masterIp}:${masterPort}")
         val response = blockingStub.connect(new ConnectionRequest(workerIp, workerPort))
         id = response.id
         partition_Server = new partitionServer(ExecutionContext.global, workerPort, id)
