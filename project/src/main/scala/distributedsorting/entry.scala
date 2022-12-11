@@ -1,5 +1,4 @@
-package distributedsorting
-
+package src.main.scala.distributedsorting
 
 object TypeConverter {
     case class Entry(line: String) {

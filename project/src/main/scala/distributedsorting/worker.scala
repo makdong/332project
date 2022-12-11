@@ -4,6 +4,7 @@ import distributedsorting.connection._
 import io.grpc._
 import java.net._
 import java.io._
+
 object worker {
     def main(args: Array[String]): Unit = {
         val masterIp = args(0).split(":")(0)
@@ -38,7 +39,7 @@ object worker {
         }
 
         val optionMap = parsing("", (List(), List()), args.toList.tail)
-        val inputDirectorys = optionMap._1
+        val inputDirectorys: List[String] = optionMap._1
         val outputDirectorys = optionMap._2
 
         val workerIp:String = InetAddress.getLocalHost.getHostAddress
@@ -49,15 +50,22 @@ object worker {
         try{
             client.connectRequest
 
-            //client.sort
+            val blockList = inputDirectorys.foldLeft(List(): List[String])((list: List[String], e: String) => {
+                FileManager.readFileAsBlock(e) ::: list
+            })
+
+            val sortedBlockList = blockList.map(workerUtil.sortBlock(_))
 
             client.sortRequest
 
-            //client.sample
+            val keyList = sortedBlockList.map(block => workerUtil.getMedianKeyFromListEntry(TypeConverter.block2EntryList(block)))
+            val medianKey = workerUtil.getMedianKeyFromKeyList(keyList)
 
-            //client.key = ???
+            client.key = medianKey
 
             client.sampleRequest
+
+
 
             client.shuffling
 

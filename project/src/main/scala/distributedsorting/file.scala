@@ -1,4 +1,4 @@
-package distributedsorting
+package src.main.scala.distributedsorting
 
 import scala.io.Source
 import java.io._

@@ -1,4 +1,4 @@
-package distributedsorting
+package src.main.scala.distributedsorting
 
 import java.io._
 import distributedsorting.connection._
@@ -46,8 +46,8 @@ object workerUtil {
      */
     def entryListList2blockList(entryListList: List[List[TypeConverter.Entry]], minRange: String, maxRange: String) : List[Block] = {
         val filteredEntryList = entryListList.flatten filter (
-            e => (e.key < maxRange && e.key >= minRange)
-        )
+          e => (e.key < maxRange && e.key >= minRange)
+          )
 
         TypeConverter.string2block(TypeConverter.entryList2Block(filteredEntryList))
     }
@@ -87,51 +87,4 @@ object workerUtil {
         mergeRec(listOfBlock)
         writer.close()
     }
-
-    def main() = {
-
-        //val server = new worker(ExecutionContext.global)
-        //server.start()
-        //server.blockUntilShutdown()
-    }
 }
-
-
-/*
-class worker(executionContext: ExecutionContext) { self =>
-    private[this] var server: Server = null
-
-    private def start(): Unit = {
-        server = ServerBuilder
-          .forPort(8023)
-          .addService(CheckWorkersRunningGrpc.bindService(new CheckWorkersRunning, ExecutionContext.global))
-          .build()
-          .start()
-
-        sys.addShutdownHook {
-            System.err.println("*** shutting down gRPC server since JVM is shutting down")
-            self.stop()
-            System.err.println("*** server shut down")
-        }
-    }
-
-    private def stop(): Unit = {
-        if (server != null) {
-            server.shutdown()
-        }
-    }
-
-    private def blockUntilShutdown(): Unit = {
-        if (server != null) {
-            server.awaitTermination()
-        }
-    }
-
-    private class CheckWorkersRunning extends CheckWorkersRunningGrpc.CheckWorkersRunning {
-        override def connection (req: ConnectionRequest) = {
-            val reply = ConnectionRespond(isWorkerStart = true)
-            Future.successful(reply)
-        }
-    }
-}
-*/
