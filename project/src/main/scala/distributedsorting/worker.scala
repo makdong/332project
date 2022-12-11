@@ -112,6 +112,7 @@ object worker {
                   workerUtil.entryListList2blockList(sortedBlockList.map(TypeConverter.block2EntryList(_)), minRange, maxRange)
               }
             )
+
             client.partition_to_send = blockListListForShuffle
             client.shuffling
 

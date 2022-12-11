@@ -93,6 +93,7 @@ class ConnectionClient(masterIp:String, masterPort:Int, workerIp:String, workerP
     def shuffling():Unit={
         logger.info("Client starts Shuffling")
         partition_Server.partition_list = partition_to_send
+        logger.info(s"${partition_to_send.size}")
         for{work_id <- ((id + 1) to workerNum)++(1 until id)}{
             logger.info(s"Client requesting partition from worker ${work_id}")
             var client:partitionClient = null
