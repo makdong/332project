@@ -23,6 +23,7 @@ class partitionClient(id: Int, host_ip: String, host_port: Int, workerNum: Int, 
 
     def requestShuffle():Unit = {
         logger.info("Asking Partition to other workers")
+        println(s"${host_ip}:${host_port+58}")
         val response = blockingStub.shuffle(new ShuffleRequest(id, key))
         logger.info("Getting Response Done")
         partition = response.partition

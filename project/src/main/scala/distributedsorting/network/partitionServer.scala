@@ -5,9 +5,10 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.mutable.Map
-
 import distributedsorting.shuffle._
 import io.grpc._
+
+import java.net.InetAddress
 
 class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { self =>
     val logger: Logger = Logger.getLogger(classOf[partitionServer].getName)
@@ -22,6 +23,7 @@ class partitionServer(executionContext: ExecutionContext, port: Int, id: Int) { 
     def start():Unit = {
         server = ServerBuilder.forPort(port).addService(ShuffleGrpc.bindService(new ShuffleImpl, executionContext)).build.start
         logger.info("Partition Server started, listening on " + port)
+        println(s"${InetAddress.getLocalHost.getHostAddress}:${port}")
         sys.addShutdownHook {
             logger.info("Shutting down Partition server since JVM is shutting down")
             self.stop()
