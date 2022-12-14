@@ -65,6 +65,13 @@ object workerUtil {
     }
 
     def merge(outputDir: String, listOfBlock: List[List[TypeConverter.Entry]]) = {
+        print("\n\n\n\n\n")
+        print(listOfBlock.size)
+        print("\n")
+        for(entry <- listOfBlock) {
+            print(entry.size)
+            print("\n")
+        }
         val endValue = TypeConverter.Entry("ENDVALUE!!  00000000000000000000000000000000  0000000000000000000000000000000000000000000000000000\n")
         def findMax(listOfBlock: List[TypeConverter.Entry]) = {
             def line = sort(listOfBlock).head
