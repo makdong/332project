@@ -115,10 +115,9 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                         sortedKeyList map (
 
                           e => {
-                              logger.info(e)
                               keyIPList.find(keyIP => keyIP._2 == e) match {
                               case None => print("not work!!")
-                              case Some (keyIP) => print(keyIP._1 + " ")
+                              case Some (keyIP) => print(keyIP._1 + " " + e + " ")
                           }}
                         )
                         stop
