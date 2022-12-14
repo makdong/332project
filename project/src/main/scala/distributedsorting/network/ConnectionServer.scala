@@ -113,10 +113,13 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                         val sortedKeyList = keyList.sorted
 
                         sortedKeyList map (
-                          e => keyIPList.find(keyIP => keyIP._2 == e) match {
+
+                          e => {
+                              logger.info(e)
+                              keyIPList.find(keyIP => keyIP._2 == e) match {
                               case None => print("not work!!")
                               case Some (keyIP) => print(keyIP._1 + " ")
-                          }
+                          }}
                         )
                         stop
                     }

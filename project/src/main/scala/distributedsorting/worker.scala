@@ -60,7 +60,6 @@ object worker {
         }
 
         val client = new ConnectionClient(masterIp, masterPort, workerIp, workerPort)
-        var keyOrder : List[Int] = null
         var block4Merge : List[List[String]] = null
 
         try{
@@ -85,8 +84,6 @@ object worker {
             for(worker_id <- (1 to keyMap.size)){
                 keyList = keyList.appended(keyMap(worker_id).key)
             }
-
-            keyOrder = workerUtil.getWorkerOrderUsingKey(keyList)
 
             val sortedKeyList = keyList.sorted
 
