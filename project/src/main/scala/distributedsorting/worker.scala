@@ -80,10 +80,11 @@ object worker {
 
             client.sampleRequest
             val keyMap:Map[Int, workerInfo] = client.worker_map
-            var keyList: List[String] = List()
-            for(worker_id <- (1 to keyMap.size)){
-                keyList = keyList.appended(keyMap(worker_id).key)
-            }
+            val keyList : List[String] = keyMap.toList.sortBy(_._1) map (e => e._2.key)
+//            var keyList: List[String] = List()
+//            for(worker_id <- (1 to keyMap.size)){
+//                keyList = keyList.appended(keyMap(worker_id).key)
+//            }
 
             val sortedKeyList = keyList.sorted
 
