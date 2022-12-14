@@ -107,25 +107,16 @@ class ConnectionServer(executionContext: ExecutionContext, port: Int, workerNum:
                         state = 5
                         logger.info("All workers' job is done")
                         val keyIPList: List[(String, String)] = worker_map.map { case (worker_id, worker_info) => (worker_info.ip, worker_info.key) }.toList
-                        print("\n\n\n")
-                        print(keyIPList)
-                        print("\n\n\n")
                         val keyList: List[String] = keyIPList map (
                           e => e._2
                         )
-                        print("\n\n\n")
-                        print(keyList)
-                        print("\n\n\n")
                         val sortedKeyList = keyList.sorted
-                        print("\n\n\n")
-                        print(sortedKeyList)
-                        print("\n\n\n")
 
                         sortedKeyList map (
                           e => {
                               keyIPList.find(keyIP => keyIP._2 == e) match {
                               case None => print("not work!!")
-                              case Some (keyIP) => print(keyIP._1 + " " + keyIP._2 + " ")
+                              case Some (keyIP) => print(keyIP._1 + " ")
                           }}
                         )
                         stop
