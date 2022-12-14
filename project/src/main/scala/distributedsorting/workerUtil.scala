@@ -69,7 +69,7 @@ object workerUtil {
         print(listOfBlock.size)
         print("\n")
         for(entry <- listOfBlock) {
-            print(entry.size)
+            print(TypeConverter.entryList2Block(entry).size)
             print("\n")
         }
         val endValue = TypeConverter.Entry("ENDVALUE!!  00000000000000000000000000000000  0000000000000000000000000000000000000000000000000000\n")
