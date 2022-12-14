@@ -119,6 +119,10 @@ object worker {
 
             block4Merge = client.partition_list
 
+            val currentWorkerInRangeData = blockListListForShuffle(keyList.indexOf(medianKey))
+
+            block4Merge = block4Merge.appended(currentWorkerInRangeData)
+
             client.returnRequest
             client.waitRequest
 
