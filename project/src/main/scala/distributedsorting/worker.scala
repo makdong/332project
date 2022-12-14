@@ -90,7 +90,7 @@ object worker {
 
             val blockListListForShuffle = keyList map (
               currentKey => {
-                  val keyIndex = keyList.indexOf(currentKey)
+                  val keyIndex = sortedKeyList.indexOf(currentKey) // change keyList to sortedKeyList
 
                   val minRange = {
                       if (keyIndex == 0) {
