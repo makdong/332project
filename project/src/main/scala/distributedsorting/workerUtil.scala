@@ -66,6 +66,7 @@ object workerUtil {
 
     def merge(outputDir: String, listOfBlock: List[List[TypeConverter.Entry]]) = {
         val endValue = TypeConverter.Entry("ENDVALUE!!  00000000000000000000000000000000  0000000000000000000000000000000000000000000000000000\n")
+
         def findMax(listOfBlock: List[TypeConverter.Entry]) = {
             def line = sort(listOfBlock).head
             def idx = listOfBlock.lastIndexOf(line)
@@ -74,6 +75,7 @@ object workerUtil {
 
         var filePath = outputDir + "/merged0.txt"
         var writer = new FileWriter(new File(filePath))
+
         def mergeRec(listOfBlock: List[List[TypeConverter.Entry]], count: Int) {
             val listOfHead: List[TypeConverter.Entry] = listOfBlock.map(block => {
                 if (block.nonEmpty) block.head
@@ -83,16 +85,24 @@ object workerUtil {
 
             if (count % 320000 == 0) {
                 writer.close()
-                filePath = outputDir + "/merged" + (count / 320000 + 1).toInt.toString + ".txt"
+                filePath = outputDir + "/merged" + (count / 320000).toInt.toString + ".txt"
                 writer = new FileWriter(new File(filePath))
             }
-
 
             if (max._2 != endValue) {
                 writer.write(max._2.line)
                 mergeRec(listOfBlock.updated(max._1, listOfBlock(max._1).tail), count + 1)
             }
         }
+
+        val tempWrite = new FileWriter(new File(outputDir + "/temp.txt"))
+
+        listOfBlock map (
+          block => block map (
+            entry => tempWrite.write(entry.toLine)
+          )
+        )
+
         mergeRec(listOfBlock, 0)
         writer.close()
     }
